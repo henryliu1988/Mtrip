@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 25
@@ -9,22 +10,51 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
-
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+    compile project(':lib:pulltorefresh')
+    compile project(':lib:photoView')
+    compile project(':lib:FlycoTabLayout_Lib')
+    compile files('libs/fastjson-1.2.9.jar')
+    compile files('libs/ksoap2-android-assembly-3.0.0-jar-with-dependencies.jar')
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile project(':lib:dropdownmenu')
+    compile 'com.bigkoo:pickerview:2.1.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile files('libs/android-viewbadger.jar')
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.zhl.cbdialog:CBDialog:1.0.0'
+    compile 'com.lguipeng.bubbleview:library:1.0.0'
+    compile 'com.shizhefei:MVCHelper-Library:1.0.8'
+    compile 'com.shizhefei:MVCHelper-Pullrefresh:1.0.8'
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+
 }
