@@ -86,19 +86,7 @@ public class UserData {
         Map<String, Object> token = Utils.parseObjectToMapString(tokenOb);
         if (token != null && token.size() > 0) {
             TokenInfo info = new TokenInfo();
-            info.setId(Utils.toString(token.get("id")));
-            info.setMobile(Utils.toString(token.get("mobile")));
-            info.setNickname(Utils.toString(token.get("nickname")));
-            info.setCollectExperts(Utils.toString(token.get("collectexpert")));
-            info.setCollectNews(Utils.toString(token.get("collectnews")));
-            info.setIdcard(Utils.toString(token.get("idcard")));
-            info.setPaypass(Utils.toString(token.get("paypass")));
-            info.setStatus(Utils.toString(token.get("status")));
-            info.setPassoword(Utils.toString(token.get("password")));
             Map<String, Object> headImg = Utils.parseObjectToMapString(token.get("head_img"));
-            info.setPhotoId(Utils.toString(headImg.get("id")));
-            info.setPhotoUrl(Utils.toString(headImg.get("path")));
-            info.setSex(Utils.toString(token.get("sex")));
             setToken(info);
             AppDataManager.getInstance().initLoginSucData();
         }

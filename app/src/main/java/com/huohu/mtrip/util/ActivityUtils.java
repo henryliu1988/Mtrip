@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
-import com.huohu.mtrip.MainActivity;
 import com.huohu.mtrip.app.MApplication;
+import com.huohu.mtrip.model.key.IntentKey;
+import com.huohu.mtrip.view.activity.ImageBrowsActivity;
+import com.huohu.mtrip.view.activity.LoginActivity;
+import com.huohu.mtrip.view.activity.MainActivity;
 
 import java.util.List;
 import java.util.Map;

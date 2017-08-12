@@ -8,7 +8,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.zhjydy.app.MApplication;
+import com.huohu.mtrip.app.MApplication;
+
 
 /**
  * Created by liutao on 2016/6/21.

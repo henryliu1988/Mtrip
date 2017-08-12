@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
-import com.zhjydy.app.MApplication;
+import com.huohu.mtrip.app.MApplication;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

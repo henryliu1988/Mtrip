@@ -3,8 +3,8 @@ package com.huohu.mtrip.model.net;
 import android.app.Activity;
 import android.content.Context;
 
-
 import com.huohu.mtrip.util.NetworkUtil;
+import com.huohu.mtrip.view.wighet.CustomProgress;
 
 import rx.Subscriber;
 

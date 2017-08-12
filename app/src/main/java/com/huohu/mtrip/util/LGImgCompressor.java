@@ -13,7 +13,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 
-import com.zhjydy.app.MApplication;
+import com.huohu.mtrip.app.MApplication;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
