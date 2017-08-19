@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-      />
+    <com.flyco.tablayout.CommonTabLayout
+        xmlns:tl="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/m_main_tabs"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp"
+        android:background="@color/title_bg"
+        tl:tl_iconHeight="27dp"
+        tl:tl_iconWidth="27dp"
+        tl:tl_iconMargin="1dp"
+        tl:tl_textSelectColor="@color/title_bg1"
+        tl:tl_textUnselectColor="@color/white_text"
+        tl:tl_textsize="12sp" />
 
-</LinearLayout>
+    <View
+        android:id="@+id/tab_div"
+        android:layout_above="@id/m_main_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/div_line" />
+
+    <com.huohu.mtrip.view.wighet.NoScrollViewPager
+        android:id="@+id/m_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tab_div" />
+</RelativeLayout>

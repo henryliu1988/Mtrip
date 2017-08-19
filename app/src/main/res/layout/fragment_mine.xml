@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/gray_bg"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_bg"
+        android:paddingLeft="15dp"
+        android:paddingTop="26dp"
+        android:paddingBottom="22dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:scaleType="fitCenter"
+            android:id="@+id/photo_image"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nickname_tv"
+            android:textColor="@color/white_text"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/photo_image"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:id="@+id/role_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:paddingLeft="9dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white_text"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/mine_info_layout"
+        style="@style/mine_item_layout"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/mine_info_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/mine_info_image" />
+
+        <TextView
+            android:layout_toRightOf="@id/mine_info_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个人资料"
+            android:textColor="@color/black_text"
+            android:layout_centerVertical="true"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/item_turn" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/div_line" />
+
+    <RelativeLayout
+        android:id="@+id/mine_score_layout"
+        style="@style/mine_item_layout">
+
+        <ImageView
+            android:id="@+id/mine_score_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/mine_score_image" />
+
+        <TextView
+            android:layout_toRightOf="@id/mine_score_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的积分"
+            android:textColor="@color/black_text"
+            android:layout_centerVertical="true"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/item_turn" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/div_line" />
+
+
+    <RelativeLayout
+        android:id="@+id/pet_layout"
+        style="@style/mine_item_layout">
+
+        <ImageView
+            android:id="@+id/pet_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/mine_pet_image" />
+
+        <TextView
+            android:layout_toRightOf="@id/pet_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宠物之家"
+            android:textColor="@color/black_text"
+            android:layout_centerVertical="true"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/item_turn" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/div_line" />
+
+    <RelativeLayout
+        android:id="@+id/mine_prize_layout"
+        style="@style/mine_item_layout">
+
+        <ImageView
+            android:id="@+id/mine_prize_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/mine_pet_image" />
+
+        <TextView
+            android:layout_toRightOf="@id/mine_prize_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的奖品"
+            android:textColor="@color/black_text"
+            android:layout_centerVertical="true"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/item_turn" />
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

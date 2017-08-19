@@ -15,6 +15,7 @@ import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.view.activity.ImageBrowsActivity;
 import com.huohu.mtrip.view.activity.LoginActivity;
 import com.huohu.mtrip.view.activity.MainActivity;
+import com.huohu.mtrip.view.activity.PagerImpActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -147,11 +148,11 @@ public class ActivityUtils {
         }
     }
 
-    public static void transToFragPagerActivity(Activity context1, Class des, int key, String info, boolean finish) {
+    public static void transToFragPagerActivity(Activity context1, int key, String info, boolean finish) {
         Bundle bundle = new Bundle();
         bundle.putInt(IntentKey.FRAG_KEY, key);
         bundle.putString(IntentKey.FRAG_INFO, info);
-        transActivity(context1, des, bundle, finish);
+        transActivity(context1, PagerImpActivity.class, bundle, finish);
     }
 
     public static View getRootView(Activity context) {

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_bg"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+            <com.bigkoo.convenientbanner.ConvenientBanner
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/banner_home"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:canLoop="true" />
+
+            <LinearLayout
+                android:id="@+id/introduce_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+                    <TextView
+                        android:id="@+id/introduce_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white_text"
+                        android:drawableLeft="@mipmap/introduce_main_tag"
+                        android:text="乐园介绍"
+                        android:drawablePadding="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingRight="12dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/introduce_detail_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="13sp"
+                        android:gravity="center_vertical"
+                        android:text="查看详情"
+                        android:textColor="@color/yellow_color"
+                        android:drawableRight="@mipmap/introduce_detail_tag"
+                        android:drawablePadding="3dp"
+                        android:padding="4dp" />
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/introduce_image"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/map_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+                    <TextView
+                        android:id="@+id/map_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white_text"
+                        android:drawableLeft="@mipmap/map_main_tag"
+                        android:drawablePadding="3dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingRight="12dp" />
+
+                    <TextView
+                        android:id="@+id/map_detail_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="13sp"
+                        android:gravity="center_vertical"
+                        android:text="查看详情"
+                        android:textColor="@color/blue_color"
+                        android:drawableRight="@mipmap/map_detail_tag"
+                        android:drawablePadding="3dp"
+                        android:padding="4dp" />
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/map_image"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

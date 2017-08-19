@@ -28,7 +28,7 @@ import java.io.File;
 /**
  * Created by Administrator on 2016/10/21 0021.
  */
-public abstract class PageImpBaseFragment extends StatedFragment
+public abstract class PageImpBaseFragment extends TitleFragment
 {
 
     public static final int SELECT_PICTURE = 1;
