@@ -14,6 +14,7 @@ import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
+import com.huohu.mtrip.view.adapter.MsgItemAdapter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,8 @@ public class MsgListFragment extends PageImpBaseFragment {
     protected  Map<String,Object> info = new HashMap<>();
 
     public int type = MsgData.ALL_MSG;
+
+    private MsgItemAdapter mAdapter;
     @Override
     protected void initData() {
         refreshView();
@@ -57,7 +60,9 @@ public class MsgListFragment extends PageImpBaseFragment {
         String title = Utils.toString(info.get("title"));
         type = Utils.toInteger(info.get("type"));
         setTitle(title);
-
+        mAdapter = new MsgItemAdapter(getContext());
+        mList.setAdapter(mAdapter);
+        refreshView();
     }
 
 
@@ -67,7 +72,7 @@ public class MsgListFragment extends PageImpBaseFragment {
         MsgData.getInstance().getMsgListByType(type).subscribe(new BaseSubscriber<List<Map<String, Object>>>() {
             @Override
             public void onNext(List<Map<String, Object>> maps) {
-
+                mAdapter.refreshData(maps);
             }
         });
     }

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.MsgData;
 import com.huohu.mtrip.model.key.FragKey;
@@ -87,12 +88,14 @@ public class MsgCateFragment extends PageImpBaseFragment {
     protected  void onUnreadClick() {
         Map<String,Object> m = new HashMap<>();
         m.put("type",MsgData.NEW_MSG);
-        gotoFragment(FragKey.msg_cate_fragment);
+        m.put("title","未读消息");
+        gotoFragment(FragKey.msg_list_fragment, JSONObject.toJSONString(m));
     }
     protected  void onAllClick() {
         Map<String,Object> m = new HashMap<>();
         m.put("type",MsgData.ALL_MSG);
-        gotoFragment(FragKey.msg_cate_fragment);
+        m.put("title","全部消息");
+        gotoFragment(FragKey.msg_list_fragment,JSONObject.toJSONString(m));
 
     }
     @Override
