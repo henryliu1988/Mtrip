@@ -31,22 +31,12 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
-                    <TextView
-                        android:id="@+id/introduce_title_tv"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:src="@mipmap/introduce_title_img"
                         android:layout_centerVertical="true"
-                        android:textSize="15sp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/white_text"
-                        android:drawableLeft="@mipmap/introduce_main_tag"
-                        android:text="乐园介绍"
-                        android:drawablePadding="3dp"
-                        android:paddingLeft="5dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:paddingRight="12dp"
+                        android:layout_alignParentLeft="true"
                         />
 
                     <TextView
@@ -83,22 +73,13 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
-                    <TextView
-                        android:id="@+id/map_title_tv"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:src="@mipmap/map_title_img"
                         android:layout_centerVertical="true"
-                        android:textSize="15sp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/white_text"
-                        android:drawableLeft="@mipmap/map_main_tag"
-                        android:drawablePadding="3dp"
-                        android:paddingLeft="5dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:paddingRight="12dp" />
-
+                        android:layout_alignParentLeft="true"
+                        />
                     <TextView
                         android:id="@+id/map_detail_tv"
                         android:layout_width="wrap_content"

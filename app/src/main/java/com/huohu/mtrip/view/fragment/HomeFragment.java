@@ -26,16 +26,12 @@ import butterknife.ButterKnife;
 public class HomeFragment extends TitleFragment {
     @BindView(R.id.banner_home)
     ConvenientBanner bannerHome;
-    @BindView(R.id.introduce_title_tv)
-    TextView introduceTitleTv;
     @BindView(R.id.introduce_detail_tv)
     TextView introduceDetailTv;
     @BindView(R.id.introduce_image)
     ImageView introduceImage;
     @BindView(R.id.introduce_layout)
     LinearLayout introduceLayout;
-    @BindView(R.id.map_title_tv)
-    TextView mapTitleTv;
     @BindView(R.id.map_detail_tv)
     TextView mapDetailTv;
     @BindView(R.id.map_image)
@@ -54,7 +50,7 @@ public class HomeFragment extends TitleFragment {
         setContentLayout(R.layout.fragment_home);
         ButterKnife.bind(this, getContentLayout());
         setRightImageTips(R.mipmap.title_msg);
-        setTitle("萌族部落");
+        setTitleImage(R.mipmap.home_title);
 
         introduceDetailTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +59,7 @@ public class HomeFragment extends TitleFragment {
             }
         });
         ImageUtils.getInstance().dispalyFromAssets("map.jpg",introduceImage);
-        ViewUtil.setRightCornerViewDrawbleBg(introduceTitleTv,"#FFD000",60);
+       // ViewUtil.setRightCornerViewDrawbleBg(introduceTitleTv,"#FFD000",60);
         mapDetailTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +67,8 @@ public class HomeFragment extends TitleFragment {
             }
         });
         ImageUtils.getInstance().dispalyFromAssets("map.jpg",mapImage);
-        ViewUtil.setRightCornerViewDrawbleBg(mapTitleTv,"#439FFF",60);
-        mapTitleTv.setText("乐园地图");
+      //  ViewUtil.setRightCornerViewDrawbleBg(mapTitleTv,"#439FFF",60);
+      //  mapTitleTv.setText("乐园地图");
     }
 
     @Override

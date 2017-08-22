@@ -25,7 +25,6 @@ public class InitLoaderActivity extends BaseActivity implements InitLoaderContra
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         new InitLoaderPresenter(this);
-
     }
 
     @Override

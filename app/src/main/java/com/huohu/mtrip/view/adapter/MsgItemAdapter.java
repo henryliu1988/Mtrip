@@ -28,7 +28,9 @@ public class MsgItemAdapter<T> extends ListViewAdapter {
         ( (TextView) holder.getView(R.id.title)).setText("系统消息");
         ( (TextView) holder.getView(R.id.time)).setText("2017-08-05 09:28");
         ( (TextView) holder.getView(R.id.content)).setText("萌族部落新版本发布");
-        ViewUtil.setCornerViewDrawbleBg(holder.getView(R.id.view_layout),"#FFFFFF",100);
+        ViewUtil.setTopCornerViewDrawbleBg(holder.getView(R.id.top_view),"#A0D92B",10);
+        ViewUtil.setBottomCornerViewDrawbleBg(holder.getView(R.id.detail_tv),"#FFFFFF",10);
+       // ViewUtil.setCornerViewDrawbleBg(holder.getView(R.id.view_layout),"#FFFFFF","#F4F4F4",1,60);
 
     }
 }

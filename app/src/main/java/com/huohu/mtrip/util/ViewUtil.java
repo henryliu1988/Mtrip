@@ -127,7 +127,7 @@ public class ViewUtil
     public static void setCornerViewDrawbleBg(View view, String fillCorlor, int radius) {
         GradientDrawable gd = new GradientDrawable();//创建drawable
         int strokeWidth = 1;     // 1dp 边框宽度
-        int roundRadius = radius;     // 5dp 圆角半径
+        int roundRadius = radius;     //
         int strokeColorInt = Color.parseColor(fillCorlor);//边框颜色
         int fillColorInt = Color.parseColor(fillCorlor); //内部填充颜色
         gd.setColor(fillColorInt);
@@ -171,6 +171,36 @@ public class ViewUtil
         rR[3] = radius;
         rR[4] = radius;
         rR[5] = radius;
+        int strokeColorInt = Color.parseColor(fillCorlor);//边框颜色
+        int fillColorInt = Color.parseColor(fillCorlor); //内部填充颜色
+        gd.setColor(fillColorInt);
+        gd.setCornerRadii(rR);
+        gd.setStroke(strokeWidth, strokeColorInt);
+        view.setBackgroundDrawable(gd);
+    }
+    public static void setTopCornerViewDrawbleBg(View view, String fillCorlor, int radius) {
+        GradientDrawable gd = new GradientDrawable();//创建drawable
+        int strokeWidth = 1;     // 1dp 边框宽度
+        float[] rR = {0,0,0,0,0,0,0,0};
+        rR[0]= radius;
+        rR[1] = radius;
+        rR[2] = radius;
+        rR[3] = radius;
+        int strokeColorInt = Color.parseColor(fillCorlor);//边框颜色
+        int fillColorInt = Color.parseColor(fillCorlor); //内部填充颜色
+        gd.setColor(fillColorInt);
+        gd.setCornerRadii(rR);
+        gd.setStroke(strokeWidth, strokeColorInt);
+        view.setBackgroundDrawable(gd);
+    }
+    public static void setBottomCornerViewDrawbleBg(View view, String fillCorlor, int radius) {
+        GradientDrawable gd = new GradientDrawable();//创建drawable
+        int strokeWidth = 1;     // 1dp 边框宽度
+        float[] rR = {0,0,0,0,0,0,0,0};
+        rR[4]= radius;
+        rR[5] = radius;
+        rR[6] = radius;
+        rR[7] = radius;
         int strokeColorInt = Color.parseColor(fillCorlor);//边框颜色
         int fillColorInt = Color.parseColor(fillCorlor); //内部填充颜色
         gd.setColor(fillColorInt);

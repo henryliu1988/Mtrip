@@ -18,6 +18,7 @@
             android:layout_alignParentLeft="true"
             android:scaleType="fitCenter"
             android:id="@+id/photo_image"
+            android:src="@mipmap/portrait"
             android:layout_centerVertical="true" />
 
         <TextView
@@ -167,7 +168,7 @@
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
-            android:src="@mipmap/mine_pet_image" />
+            android:src="@mipmap/mine_prize_image" />
 
         <TextView
             android:layout_toRightOf="@id/mine_prize_img"
