@@ -40,39 +40,29 @@ public class UserData {
         return userData;
     }
 
-    public void tryLoginManager(final String phoneNum, final String password, Context context) {
+    public Observable<Map<String,Object>> tryLoginManager(final String phoneNum, final String password) {
         HashMap<String, Object> map = new HashMap<>();
         String paswordMd5 = MD5.GetMD5Code(password);
         map.put("mobile", phoneNum);
         map.put("password", paswordMd5);
-        map.put("type", "1");
-        WebCall.getInstance().call(WebKey.func_login, map).subscribe(new BaseSubscriber<WebResponse>(context, "登录中") {
-            @Override
-            public void onNext(WebResponse webResponse) {
-                boolean status = WebUtils.getWebStatus(webResponse);
-                Map<String, Object> info = new HashMap<String, Object>();
-                info.put("status", status);
-                if (status) {
-                    String data = webResponse.getData();
-                    saveLogInfo(phoneNum, password);
-                    saveTokenInfo(data);
-                    RefreshManager.getInstance().refreshData(RefreshKey.LOGIN_RESULT_BACK, info);
-                } else {
-                    String msg = WebUtils.getWebMsg(webResponse);
-                    info.put("msg", msg);
-                    RefreshManager.getInstance().refreshData(RefreshKey.LOGIN_RESULT_BACK, info);
-                }
-            }
+      return  WebCall.getInstance().call(WebKey.func_login, map).map(new Func1<WebResponse, Map<String, Object>>() {
+          @Override
+          public Map<String, Object> call(WebResponse webResponse) {
+              boolean status = WebUtils.getWebStatus(webResponse);
+              Map<String, Object> info = new HashMap<String, Object>();
+              info.put("status", status);
+              if (status) {
+                  String data = webResponse.getData();
+                  saveLogInfo(phoneNum, password);
+                  saveTokenInfo(data);
+              } else {
+                  String msg = WebUtils.getWebMsg(webResponse);
+                  info.put("msg", msg);
+              }
+              return info;
+          }
+      });
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                Map<String, Object> info = new HashMap<String, Object>();
-                info.put("status", false);
-                info.put("msg", e.getMessage());
-                RefreshManager.getInstance().refreshData(RefreshKey.LOGIN_RESULT_BACK, info);
-            }
-        });
 
     }
 

@@ -23,7 +23,7 @@ import rx.functions.Func1;
 /**
  * Created by Administrator on 2016/10/30 0030.
  */
-public class RegisterPresenter implements RegisterContract.Presenter,RefreshWithData {
+public class RegisterPresenter implements RegisterContract.Presenter {
 
     private RegisterContract.View mView;
 
@@ -80,8 +80,18 @@ public class RegisterPresenter implements RegisterContract.Presenter,RefreshWith
                     MToast.showToast("注册成功");
                     String phoneNum = Utils.toString(params.get("mobile"));
                     String passWordMd5 = Utils.toString(params.get("password"));
-                    RefreshManager.getInstance().addNewListener(RefreshKey.LOGIN_RESULT_BACK,RegisterPresenter.this);
-                    UserData.getInstance().tryLoginManager(phoneNum,passWordMd5,mView.getContext());
+                    UserData.getInstance().tryLoginManager(phoneNum,passWordMd5).subscribe(new BaseSubscriber<Map<String, Object>>(mView.getContext(),"") {
+                        @Override
+                        public void onNext(Map<String, Object> info) {
+                            boolean status = Utils.toBoolean(info.get("status"));
+                            String msg = Utils.toString(info.get("msg"));
+                            if (status) {
+                                mView.registerOK("");
+                            } else {
+                                MToast.showToast("注册失败");
+                            }
+                        }
+                    });
                     mView.registerOK(Utils.toString(data));
                 } else {
                     MToast.showToast(data);
@@ -91,18 +101,5 @@ public class RegisterPresenter implements RegisterContract.Presenter,RefreshWith
         });
     }
 
-    @Override
-    public void onRefreshWithData(int key, Object data) {
-        if (key == RefreshKey.LOGIN_RESULT_BACK) {
-            Map<String, Object> dataMap = Utils.parseObjectToMapString(data);
-            boolean status = Utils.toBoolean(dataMap.get("status"));
-            String msg = Utils.toString(dataMap.get("msg"));
-            if (status) {
-                mView.registerOK("");
-            } else {
-                MToast.showToast("注册失败");
-            }
-        }
-    }
 }
 

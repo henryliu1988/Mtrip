@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.huohu.mtrip.model.cache.SPUtils;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.model.refresh.RefreshKey;
 import com.huohu.mtrip.presenter.contract.LoginContract;
 import com.huohu.mtrip.util.Utils;
@@ -36,7 +37,18 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void tryLogin(final String phoneNum, final String password) {
-        UserData.getInstance().tryLoginManager(phoneNum, password, mView.getContext());
+        UserData.getInstance().tryLoginManager(phoneNum, password).subscribe(new BaseSubscriber<Map<String, Object>>() {
+            @Override
+            public void onNext(Map<String, Object> info) {
+                boolean status = Utils.toBoolean(info.get("status"));
+                String msg = Utils.toString(info.get("msg"));
+                if (status) {
+                    mView.onLoginSucess();
+                } else {
+                    mView.onLoginFail();
+                }
+            }
+        });
     }
 
 
@@ -50,18 +62,6 @@ public class LoginPresenter implements LoginContract.Presenter {
             mView.initPreferenceInfo(phoneNum, passoword);
         }
     }
-    @Override
-    public void onRefreshWithData(int key, Object data) {
-        if (key == RefreshKey.LOGIN_RESULT_BACK) {
-            Map<String, Object> dataMap = Utils.parseObjectToMapString(data);
-            boolean status = Utils.toBoolean(dataMap.get("status"));
-            String msg = Utils.toString(dataMap.get("msg"));
-            if (status) {
-                mView.onLoginSucess();
-            } else {
-                mView.onLoginFail();
-            }
-        }
-    }
+
 }
 

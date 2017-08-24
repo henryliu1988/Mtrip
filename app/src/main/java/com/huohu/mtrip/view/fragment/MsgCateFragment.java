@@ -49,7 +49,7 @@ public class MsgCateFragment extends PageImpBaseFragment {
                     TextView title = (TextView) view1.findViewById(R.id.msg_title);
                     TextView content = (TextView) view1.findViewById(R.id.msg_content);
                     TextView timeTv = (TextView) view1.findViewById(R.id.msg_time);
-                    imagew.setImageResource(R.mipmap.msg_unread_img);
+                    imagew.setImageResource(R.mipmap.msg_unread);
                     title.setText("未读消息");
                     content.setText(Utils.toString(map.get("content")));
                     timeTv.setText(Utils.toString(map.get("addtime")));
@@ -61,8 +61,11 @@ public class MsgCateFragment extends PageImpBaseFragment {
                     });
                     layou.addView(view1);
                 }
+
+
                 View view2 = LayoutInflater.from(getContext()).inflate(R.layout.msg_cate_item_layout, null);
                 ImageView imagew = (ImageView) view2.findViewById(R.id.image);
+                imagew.setImageResource(R.mipmap.msg_all);
                 TextView title = (TextView) view2.findViewById(R.id.msg_title);
                 TextView content = (TextView) view2.findViewById(R.id.msg_content);
                 TextView timeTv = (TextView) view2.findViewById(R.id.msg_time);

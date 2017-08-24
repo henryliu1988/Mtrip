@@ -31,7 +31,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/login_phonenum" />
+                        android:src="@mipmap/login_password1" />
                 </RelativeLayout>
 
                 <EditText
@@ -42,6 +42,7 @@
                     android:layout_marginLeft="5dp"
                     android:background="@null"
                     android:gravity="left|center_vertical"
+                    android:inputType="textPassword"
                     android:textColorHint="@color/edit_hint_text_color"
                     android:textColor="@color/black_text1"
                     android:hint="重设密码 6~19位任意字符，区分大小写"
@@ -72,7 +73,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="fitCenter"
-                        android:src="@mipmap/login_confirm" />
+                        android:src="@mipmap/login_password" />
                 </RelativeLayout>
 
                 <EditText

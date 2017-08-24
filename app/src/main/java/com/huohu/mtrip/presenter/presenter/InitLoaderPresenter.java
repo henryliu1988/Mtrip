@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.huohu.mtrip.model.cache.SPUtils;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.model.refresh.RefreshKey;
 import com.huohu.mtrip.model.refresh.RefreshManager;
 import com.huohu.mtrip.model.refresh.RefreshWithData;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/12/17 0017.
  */
-public class InitLoaderPresenter implements InitLoaderContract.Presenter,RefreshWithData {
+public class InitLoaderPresenter implements InitLoaderContract.Presenter {
 
     private InitLoaderContract.View mView;
 
@@ -24,7 +25,6 @@ public class InitLoaderPresenter implements InitLoaderContract.Presenter,Refresh
         this.mView = view;
         mView.setPresenter(this);
         start();
-        RefreshManager.getInstance().addNewListener(RefreshKey.LOGIN_RESULT_BACK, this);
 
     }
 
@@ -39,7 +39,18 @@ public class InitLoaderPresenter implements InitLoaderContract.Presenter,Refresh
         String passoword = Utils.toString(SPUtils.get("login_password", ""));
         boolean autoLogin = Utils.toBoolean(SPUtils.get("login_auto", false));
         if (!TextUtils.isEmpty(phoneNum) && !TextUtils.isEmpty(passoword) && autoLogin) {
-            UserData.getInstance().tryLoginManager(phoneNum, passoword, null);
+            UserData.getInstance().tryLoginManager(phoneNum, passoword).subscribe(new BaseSubscriber<Map<String, Object>>() {
+                @Override
+                public void onNext(Map<String, Object> info) {
+                    boolean status = Utils.toBoolean(info.get("status"));
+                    mView.gotoMainTabs();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    mView.gotoMainTabs();
+                }
+            });
         } else {
             if (mView != null) {
                 mView.gotoMainTabs();
@@ -49,19 +60,8 @@ public class InitLoaderPresenter implements InitLoaderContract.Presenter,Refresh
 
     @Override
     public void finish() {
-        RefreshManager.getInstance().removeListner(RefreshKey.LOGIN_RESULT_BACK, this);
 
     }
 
-    @Override
-    public void onRefreshWithData(int key, Object data) {
-        if (key == RefreshKey.LOGIN_RESULT_BACK) {
-            Map<String, Object> dataMap = Utils.parseObjectToMapString(data);
-            boolean status = Utils.toBoolean(dataMap.get("status"));
-            String msg = Utils.toString(dataMap.get("msg"));
-            if (mView != null) {
-                mView.gotoMainTabs();
-            }
-    }
-    }
+
 }

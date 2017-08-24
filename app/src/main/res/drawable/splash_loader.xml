@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/white_bg"/>
     <item
-        android:gravity="center" >
-        <bitmap android:src="@mipmap/picture"/>
+        android:drawable="@color/white_bg"/>
+    <item
+        android:gravity="center"
+        android:bottom="100dp">
+        <bitmap android:src="@mipmap/picture"
+            android:gravity="center_vertical" />
         </item>
 </layer-list>

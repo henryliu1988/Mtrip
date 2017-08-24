@@ -26,7 +26,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/9/29 0029.
  */
-public class LoginActivity extends TitleActivity implements LoginContract.View,RefreshWithData {
+public class LoginActivity extends TitleActivity implements LoginContract.View {
 
 
     @BindView(R.id.phonenum_edit)
@@ -111,7 +111,7 @@ public class LoginActivity extends TitleActivity implements LoginContract.View,R
     @Override
     public void onLoginFail() {
         MToast.showToast("登录失败");
-        ActivityUtils.transActivity(LoginActivity.this,MainActivity.class,true);
+        //ActivityUtils.transActivity(LoginActivity.this,MainActivity.class,true);
     }
 
     @Override
@@ -124,24 +124,14 @@ public class LoginActivity extends TitleActivity implements LoginContract.View,R
     protected void onResume()
     {
         super.onResume();
-        RefreshManager.getInstance().addNewListener(RefreshKey.LOGIN_RESULT_BACK, this);
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        RefreshManager.getInstance().removeListner(RefreshKey.LOGIN_RESULT_BACK, this);
     }
 
-    @Override
-    public void onRefreshWithData(int key, Object data)
-    {
-        if (mPresenter != null)
-        {
-            mPresenter.onRefreshWithData(key, data);
-        }
 
-    }
 
 }

@@ -164,6 +164,12 @@ public class Utils {
         }
         return idList;
     }
+    public static boolean isMobiPhoneNum(String telNum){
+        String regex = "^1[34578]\\d{9}$";
+        Pattern p = Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(telNum);
+        return m.matches();
+    }
 
     public static String mapValue(Object ob, final String key) {
         String value = "";
