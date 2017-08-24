@@ -55,5 +55,6 @@ dependencies {
     compile 'com.shizhefei:MVCHelper-Library:1.0.8'
     compile 'com.shizhefei:MVCHelper-Pullrefresh:1.0.8'
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'com.githang:status-bar-compat:latest.integration'
 
 }

@@ -22,15 +22,17 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/12/18 0018.
  */
-public class ImageBrowsActivity extends  BaseActivity {
+public class ImageBrowsActivity extends  TitleActivity {
     private ViewPager mPager;
 
     private int mPosition;
     private List<Map<String,Object>> mImageList = new ArrayList<>();
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_browse);
+    protected void initView() {
+        setContentLayout(R.layout.activity_image_browse);
+        fullScreenContent(true);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initDatas();
@@ -76,6 +78,7 @@ public class ImageBrowsActivity extends  BaseActivity {
             }
         });
         mPager.setCurrentItem(mPosition);
+
     }
 
     private void initDatas() {

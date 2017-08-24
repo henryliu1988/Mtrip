@@ -43,20 +43,18 @@ public class LoginActivity extends TitleActivity implements LoginContract.View {
     TextView rigisterNow;
 
     private LoginContract.Presenter mPresenter;
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-        rigisterNow.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        new LoginPresenter(this);
-    }
+
 
     @Override
     protected void initView() {
         setContentLayout(R.layout.activity_login);
         ButterKnife.bind(this,getContentLayout());
+        fullScreenContent(true);
         backEnable(true);
+        rigisterNow.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         setTitle("登录");
+        new LoginPresenter(this);
+
     }
 
     @OnClick({ R.id.forget_psw_tv, R.id.btnLogin, R.id.rigister_now})

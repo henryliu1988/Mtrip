@@ -27,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements  MainContract.View{
+public class MainActivity extends TitleActivity implements  MainContract.View{
 
     @BindView(R.id.m_main_tabs)
     CommonTabLayout mMainTabs;
@@ -52,17 +52,14 @@ public class MainActivity extends BaseActivity implements  MainContract.View{
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private MainContract.Presenter mPresenter;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+
+
+    public   void initView() {
+        setContentLayout(R.layout.activity_main);
+        fullScreenContent(true);
         ButterKnife.bind(this);
-        initView();
         new MainPresenter(this);
-    }
-
-
-    private  void initView() {
         mFragments.clear();
         mFragments.add(new HomeFragment());
         mFragments.add(new ArFragment());

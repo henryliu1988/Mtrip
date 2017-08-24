@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.util.ViewUtil;
 
@@ -27,6 +28,9 @@ public abstract class TitleActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
+        int titleColor = getResources().getColor(R.color.title_bg);
+        StatusBarCompat.setStatusBarColor(this,titleColor );
+
         mCenterTv = (TextView)this.findViewById(R.id.title_name);
         mTitleBackIm = (ImageView)this.findViewById(R.id.title_back);
         mRightTv = (TextView)this.findViewById(R.id.right_tv);

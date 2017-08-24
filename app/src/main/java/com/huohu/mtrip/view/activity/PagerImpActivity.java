@@ -24,14 +24,16 @@ import butterknife.ButterKnife;
 /**
  * Created by admin on 2016/8/9.
  */
-public class PagerImpActivity extends BaseActivity implements PageImpContract.View {
+public class PagerImpActivity extends TitleActivity implements PageImpContract.View {
 
 
     private PageImpContract.Presenter mPresenter;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
+
         Bundle bundle = getIntent().getBundleExtra(IntentKey.INTENT_BUNDLE);
         int key = bundle.getInt(IntentKey.FRAG_KEY);
         if (!FragKey.FragMap.containsKey(key)) {
@@ -39,8 +41,9 @@ public class PagerImpActivity extends BaseActivity implements PageImpContract.Vi
             return;
         }
         new PageImpPresenter(this);
-        setContentView(R.layout.activity_pager_imp);
+        setContentLayout(R.layout.activity_pager_imp);
         ButterKnife.bind(this);
+        fullScreenContent(true);
         StatedFragment fragment = PagerFragmentFactory.createFragment(key);
         if (fragment == null) {
             return;
@@ -52,6 +55,7 @@ public class PagerImpActivity extends BaseActivity implements PageImpContract.Vi
             fragment.setArguments(fragBundle);
         }
         FragmentUtils.addNewFragment(this, fragment, FragKey.FragMap.get(key), R.id.fragment_content);
+
     }
 
 
