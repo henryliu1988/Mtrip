@@ -26,7 +26,7 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/9/29 0029.
  */
-public class LoginActivity extends BaseActivity implements LoginContract.View,RefreshWithData {
+public class LoginActivity extends TitleActivity implements LoginContract.View,RefreshWithData {
 
 
     @BindView(R.id.phonenum_edit)
@@ -46,10 +46,17 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,Re
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         rigisterNow.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         new LoginPresenter(this);
+    }
+
+    @Override
+    protected void initView() {
+        setContentLayout(R.layout.activity_login);
+        ButterKnife.bind(this,getContentLayout());
+        backEnable(true);
+        setTitle("登录");
     }
 
     @OnClick({ R.id.forget_psw_tv, R.id.btnLogin, R.id.rigister_now})
@@ -104,6 +111,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View,Re
     @Override
     public void onLoginFail() {
         MToast.showToast("登录失败");
+        ActivityUtils.transActivity(LoginActivity.this,MainActivity.class,true);
     }
 
     @Override

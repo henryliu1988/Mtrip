@@ -1,21 +1,21 @@
 package com.huohu.mtrip.view.activity;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.presenter.contract.ForgetPassWordContract;
 import com.huohu.mtrip.presenter.presenter.ForgetPassWordPresenter;
+import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.wighet.MyCountTimer;
-
-import butterknife.ButterKnife;
+import com.huohu.mtrip.view.wighet.ViewHolder;
 
 /**
  * Created by Administrator on 2016/9/29 0029.
  */
-public class ForgetPassWordActivity extends BaseActivity implements ForgetPassWordContract.View {
-
+public class ForgetPassWordActivity extends TitleActivity implements ForgetPassWordContract.View {
 
     private MyCountTimer mCountTimer;
 
@@ -23,17 +23,67 @@ public class ForgetPassWordActivity extends BaseActivity implements ForgetPassWo
 
     private ForgetPassWordContract.Presenter mPresenter;
 
+
+    private ViewHolder mForViewHolder;
+    private ViewHolder mResetViewHolder;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
-        ButterKnife.bind(this);
+    protected void initView() {
+        mForViewHolder = new ViewHolder(this,null,R.layout.activity_forget_password,0);
+        mResetViewHolder = new ViewHolder(this,null,R.layout.activity_reset_pwd,1);
+        backEnable(true);
+        toForgetView();
         new ForgetPassWordPresenter(this);
-       // mCountTimer = new MyCountTimer(confirmCodeGet, 0xff658dff, 0xff658dff);
     }
+
+
+    private void toForgetView() {
+        setContentLayout(mForViewHolder.getConvertView());
+        setTitle("忘记密码");
+        mTitleBackIm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        TextView confirmGetTv = (TextView)  mForViewHolder.getView(R.id.confirm_code_get);
+        ViewUtil.setCornerViewDrawbleBg(confirmGetTv,"#FFFFFF","#A0D92B",1,4);
+        confirmGetTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryGetConfirmCode();
+            }
+        });
+        mForViewHolder.getView(R.id.net_step).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText telTv  = (EditText)mForViewHolder.getView(R.id.phonenum_edit);
+                EditText confirmTv  = (EditText)mForViewHolder.getView(R.id.confirm_code_edit);
+                toResetView();
+            }
+        });
+    }
+
+    private void toResetView() {
+        setContentLayout(mResetViewHolder.getConvertView());
+        setTitle("重设密码");
+        mTitleBackIm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toForgetView();
+            }
+        });
+        mResetViewHolder.getView(R.id.confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
 
     private void tryGetConfirmCode() {
     }
+
 
     private void tryConfirmReset() {
 
@@ -52,4 +102,6 @@ public class ForgetPassWordActivity extends BaseActivity implements ForgetPassWo
     public Context getContext() {
         return this;
     }
+
+
 }

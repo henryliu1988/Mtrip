@@ -17,11 +17,11 @@ import com.huohu.mtrip.util.ViewUtil;
  */
 
 public abstract class TitleActivity extends BaseActivity {
-    private TextView mCenterTv;
-    private ImageView mTitleBackIm;
-    private TextView mRightTv;
-    private FrameLayout mContentLayout;
-    private RelativeLayout mTitleLayout;
+    protected TextView mCenterTv;
+    protected ImageView mTitleBackIm;
+    protected TextView mRightTv;
+    protected FrameLayout mContentLayout;
+    protected RelativeLayout mTitleLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,8 @@ public abstract class TitleActivity extends BaseActivity {
     protected View getContentLayout() {
         return mContentLayout;
     }
+
+
     protected  void fullScreenContent(boolean full) {
         if (full) {
             ViewUtil.setGone(mTitleLayout);
@@ -49,7 +51,6 @@ public abstract class TitleActivity extends BaseActivity {
         }
     }
     protected void backEnable(boolean enable) {
-
         if (enable) {
             ViewUtil.setVisible(mTitleBackIm);
             mTitleBackIm.setOnClickListener(new View.OnClickListener() {

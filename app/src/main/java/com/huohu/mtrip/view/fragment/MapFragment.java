@@ -11,6 +11,7 @@ import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.ImageUtils;
+import com.huohu.mtrip.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,10 @@ import butterknife.ButterKnife;
 public class MapFragment extends TitleFragment {
     @BindView(R.id.photo_view)
     PhotoView photoView;
+    @BindView(R.id.scaleAdd)
+    ImageView scaleAdd;
+    @BindView(R.id.scaleMul)
+    ImageView scaleMul;
 
     @Override
     protected void initData() {
@@ -39,12 +44,41 @@ public class MapFragment extends TitleFragment {
         photoView.enable();
         photoView.enableRotate();
         photoView.setScaleType(ImageView.ScaleType.CENTER);
-        ImageUtils.getInstance().dispalyFromAssets("map.jpg",photoView);
+        ImageUtils.getInstance().dispalyFromAssets("map.jpg", photoView);
+        ViewUtil.setLeftCornerViewDrawbleBg(scaleAdd,"#89000000",60);
+        ViewUtil.setRightCornerViewDrawbleBg(scaleMul,"#89000000",60);
+        scaleAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float x = photoView.getScaleX();
+                float y =photoView.getScaleY();
+                x+=0.2;
+                y+=0.2;
+                photoView.setScaleX(x);
+                photoView.setScaleY(y);
+            }
+        });
+        scaleMul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float x = photoView.getScaleX();
+                float y =photoView.getScaleY();
+                if (x > 0.2) {
+                    x-=0.2;
+                }
+                if (y >0.2) {
+                    y-=0.2;
+                }
+                photoView.setScaleX(x);
+                photoView.setScaleY(y);
+            }
+        });
+
     }
 
     @Override
     protected void onRightTipViewClick() {
-        ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.msg_cate_fragment,null,false);
+        ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.msg_cate_fragment, null, false);
     }
 
     @Override
