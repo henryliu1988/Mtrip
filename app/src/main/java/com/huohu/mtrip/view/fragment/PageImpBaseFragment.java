@@ -11,15 +11,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
+import com.huohu.mtrip.R;
 import com.huohu.mtrip.app.MApplication;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.presenter.ActivityResultView;
 import com.huohu.mtrip.util.DateUtil;
 import com.huohu.mtrip.util.ImageUtils;
+import com.huohu.mtrip.util.ScreenUtils;
+import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.activity.PagerImpActivity;
 import com.huohu.mtrip.view.wighet.MToast;
 
@@ -153,34 +159,38 @@ public abstract class PageImpBaseFragment extends TitleFragment
     }
     protected void selectImg()
     {
-        final CharSequence[] items = {"拍照上传", "从相册选择"};
-        new AlertDialog.Builder(getContext()).setTitle("选择图片来源")
-                .setItems(items, new DialogInterface.OnClickListener()
+        final AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+        dialog.show();
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.select_image_layout,null);
+        ViewUtil.setCornerViewDrawbleBg(view,"#999999","#FFFFFF");
+        dialog.getWindow().setContentView(view);
+        dialog.getWindow().setLayout(ScreenUtils.getScreenWidth()/4*3, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().findViewById(R.id.camera_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 {
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        if (which == SELECT_PICTURE)
-                        {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                            {
-                                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, SELECT_PICTURE);
-                            } else
-                            {
-                                toGetLocalImage();
-                            }
-                        } else
-                        {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                            {
-                                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, SELECT_CAMER);
-                            } else
-                            {
-                                toGetCameraImage();
-                            }
-                            //
-                        }
-                    }
-                }).create().show();
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, SELECT_PICTURE);
+                } else
+                {
+                    toGetLocalImage();
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.getWindow().findViewById(R.id.gallery_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, SELECT_CAMER);
+                } else
+                {
+                    toGetCameraImage();
+                }
+                dialog.dismiss();
+            }
+        });
     }
 
     /**

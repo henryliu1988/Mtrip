@@ -36,7 +36,7 @@ public class PrizeListAdapter extends ListViewAdapter<Map<String,Object>> {
         ImageView image = (ImageView)holder.getView(R.id.image);
         TextView prizeTimeTv = (TextView)holder.getView(R.id.prize_get_time);
         TextView prizeduiTv = (TextView)holder.getView(R.id.prize_dui_time);
-        TextView prizeoptTv = (TextView)holder.getView(R.id.dui_opt);
+        ImageView prizeoptImage = (ImageView)holder.getView(R.id.dui_opt);
         TextView durationTv = (TextView)holder.getView(R.id.prize_duration);
         TextView prizeStatus  = (TextView)holder.getView(R.id.status_tv);
         ImageView moreImage = (ImageView)holder.getView(R.id.item_more);
@@ -48,11 +48,10 @@ public class PrizeListAdapter extends ListViewAdapter<Map<String,Object>> {
             ViewUtil.setVisible(image);
             ViewUtil.setVisible(prizeTimeTv);
             ViewUtil.setVisible(durationTv);
-            ViewUtil.setVisible(prizeoptTv);
+            ViewUtil.setVisible(prizeoptImage);
 
             durationTv.setText(Utils.toString("有效期：" +data.get("duration")));
-            ViewUtil.setCornerViewDrawbleBg(prizeoptTv,"#A0D92B","#A0D92B",15);
-            prizeoptTv.setOnClickListener(new View.OnClickListener() {
+            prizeoptImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null ) {
@@ -85,7 +84,7 @@ public class PrizeListAdapter extends ListViewAdapter<Map<String,Object>> {
 
 
             ViewUtil.setGone(durationTv);
-            ViewUtil.setGone(prizeoptTv);
+            ViewUtil.setGone(prizeoptImage);
             ViewUtil.setVisible(moreImage);
 
             holder.getConvertView().setOnClickListener(new View.OnClickListener() {
