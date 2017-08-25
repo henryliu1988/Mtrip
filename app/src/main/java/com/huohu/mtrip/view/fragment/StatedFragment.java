@@ -8,6 +8,7 @@ public abstract class StatedFragment extends Fragment
 {
 
     Bundle savedState;
+    public String mArgInfo = "";
 
     public StatedFragment() {
         super();

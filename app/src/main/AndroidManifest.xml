@@ -62,9 +62,10 @@
         <activity
             android:name=".view.activity.ImageBrowsActivity"
             android:launchMode="singleTask"
-
             android:screenOrientation="portrait"/>
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
     </application>
+
 
 </manifest>

@@ -1,26 +1,60 @@
 package com.huohu.mtrip.view.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.util.ActivityUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/17 0017.
  */
 
 public class MineFragment extends TitleFragment {
+    @BindView(R.id.photo_image)
+    ImageView photoImage;
+    @BindView(R.id.nickname_tv)
+    TextView nicknameTv;
+    @BindView(R.id.role_tv)
+    TextView roleTv;
+    @BindView(R.id.mine_info_img)
+    ImageView mineInfoImg;
+    @BindView(R.id.mine_info_layout)
+    RelativeLayout mineInfoLayout;
+    @BindView(R.id.mine_score_img)
+    ImageView mineScoreImg;
+    @BindView(R.id.mine_score_layout)
+    RelativeLayout mineScoreLayout;
+    @BindView(R.id.pet_img)
+    ImageView petImg;
+    @BindView(R.id.pet_layout)
+    RelativeLayout petLayout;
+    @BindView(R.id.mine_prize_img)
+    ImageView minePrizeImg;
+    @BindView(R.id.mine_prize_layout)
+    RelativeLayout minePrizeLayout;
+
     @Override
     protected void initData() {
-        
+
     }
 
 
     @Override
     protected void afterViewCreate() {
         setContentLayout(R.layout.fragment_mine);
-        ButterKnife.bind(this,getContentLayout());
+        ButterKnife.bind(this, getContentLayout());
         backEnable(false);
         setLeftText("设置");
         needDiv(false);
@@ -29,11 +63,31 @@ public class MineFragment extends TitleFragment {
 
     @Override
     protected void onRightTipViewClick() {
-        ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.msg_cate_fragment,null,false);
+        ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.msg_cate_fragment, null, false);
     }
 
     @Override
     public void refreshView() {
 
+    }
+
+
+
+    @OnClick({R.id.mine_info_layout, R.id.mine_score_layout, R.id.pet_layout, R.id.mine_prize_layout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.mine_info_layout:
+                ActivityUtils.transToFragPagerActivity(getActivity(),FragKey.mine_info_fragment,null,false);
+                break;
+            case R.id.mine_score_layout:
+                ActivityUtils.transToFragPagerActivity(getActivity(),FragKey.mine_score_fragment,null,false);
+                break;
+            case R.id.pet_layout:
+                ActivityUtils.transToFragPagerActivity(getActivity(),FragKey.mine_pet_fragment,null,false);
+                break;
+            case R.id.mine_prize_layout:
+                ActivityUtils.transToFragPagerActivity(getActivity(),FragKey.mine_prize_fragment,null,false);
+                break;
+        }
     }
 }

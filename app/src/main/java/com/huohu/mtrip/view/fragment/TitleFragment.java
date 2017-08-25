@@ -3,6 +3,7 @@ package com.huohu.mtrip.view.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.key.IntentKey;
+import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.wighet.ImageTipsView;
 
@@ -50,7 +53,9 @@ public abstract class TitleFragment extends StatedFragment {
             ViewUtil.setGone(mCenterImage);
             ViewUtil.setGone(mLeftTv);
         }
-
+        if (getArguments() != null && !TextUtils.isEmpty(getArguments().getString(IntentKey.FRAG_INFO))) {
+            mArgInfo = Utils.toString(getArguments().getString(IntentKey.FRAG_INFO));
+        }
         afterViewCreate();
         initData();
         return mRootView;

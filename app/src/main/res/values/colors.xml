@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#A0D92B</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="status_bar_color">@color/colorPrimaryDark</color>
     <color name="white_bg">#FFFFFF</color>
     <color name="title_bg">#A0D92B</color>
     <color name="title_bg1">#498D00</color>
@@ -26,5 +27,6 @@
     <color name="bg_title_search">#4265C9</color>
 
     <color name="div_line">#DDDDDD</color>
+    <color name="black_text_hint">#E6E6FA</color>
 
 </resources>

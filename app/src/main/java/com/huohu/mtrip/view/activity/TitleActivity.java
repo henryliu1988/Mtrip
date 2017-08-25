@@ -29,7 +29,7 @@ public abstract class TitleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
         int titleColor = getResources().getColor(R.color.title_bg);
-        StatusBarCompat.setStatusBarColor(this,titleColor );
+        StatusBarCompat.setStatusBarColor(this,titleColor,true );
 
         mCenterTv = (TextView)this.findViewById(R.id.title_name);
         mTitleBackIm = (ImageView)this.findViewById(R.id.title_back);

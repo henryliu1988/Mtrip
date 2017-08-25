@@ -142,6 +142,15 @@ public abstract class PageImpBaseFragment extends TitleFragment
     }
 
 
+    protected void removeOnActivityResultView(ActivityResultView view)
+    {
+        if (!(getActivity() instanceof PagerImpActivity))
+        {
+            return;
+        }
+        PagerImpActivity activity = (PagerImpActivity) getActivity();
+        activity.removeOnActivityResultView(view);
+    }
     protected void selectImg()
     {
         final CharSequence[] items = {"拍照上传", "从相册选择"};

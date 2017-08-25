@@ -60,6 +60,10 @@ public class Utils {
 
     }
 
+
+    public static int getColorFormResource(int resId) {
+        return MApplication.getInstance().getContext().getResources().getColor(resId);
+    }
     public static int toInteger(Object ob) {
 
         if (ob == null) {
