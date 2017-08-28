@@ -35,8 +35,7 @@
             android:id="@+id/prize_dui_time"
             android:textSize="16sp"
             android:paddingTop="5dp"
-            android:textColor="@color/black_text1"
-            />
+            android:textColor="@color/black_text1" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
 import com.huohu.mtrip.app.MApplication;
+import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.view.activity.ImageBrowsActivity;
 import com.huohu.mtrip.view.activity.LoginActivity;
@@ -149,6 +150,9 @@ public class ActivityUtils {
     }
 
     public static void transToFragPagerActivity(Activity context1, int key, String info, boolean finish) {
+        if (UserData.getInstance().needLogin(key,context1)) {
+            return;
+        }
         Bundle bundle = new Bundle();
         bundle.putInt(IntentKey.FRAG_KEY, key);
         bundle.putString(IntentKey.FRAG_INFO, info);

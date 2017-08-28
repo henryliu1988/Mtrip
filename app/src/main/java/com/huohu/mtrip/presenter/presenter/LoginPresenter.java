@@ -37,11 +37,12 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void tryLogin(final String phoneNum, final String password) {
-        UserData.getInstance().tryLoginManager(phoneNum, password).subscribe(new BaseSubscriber<Map<String, Object>>() {
+        UserData.getInstance().tryLoginManager(phoneNum, password).subscribe(new BaseSubscriber<Map<String, Object>>(mView.getContext(),"正在登录") {
             @Override
             public void onNext(Map<String, Object> info) {
                 boolean status = Utils.toBoolean(info.get("status"));
                 String msg = Utils.toString(info.get("msg"));
+
                 if (status) {
                     mView.onLoginSucess();
                 } else {

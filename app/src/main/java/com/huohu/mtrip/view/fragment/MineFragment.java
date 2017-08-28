@@ -62,6 +62,11 @@ public class MineFragment extends TitleFragment {
     }
 
     @Override
+    protected void onLeftTvClick() {
+        ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.set_fragment, null, false);
+    }
+
+    @Override
     protected void onRightTipViewClick() {
         ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.msg_cate_fragment, null, false);
     }

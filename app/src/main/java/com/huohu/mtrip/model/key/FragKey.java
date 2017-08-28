@@ -20,6 +20,7 @@ public class FragKey {
     public static final int mine_birth_fragment = 8;
     public static final int mine_prize_fragment = 9;
     public static final int prize_detail_fragment = 10;
+    public static final int set_fragment = 11;
 
 
     public static final Map<Integer,String> FragMap = new HashMap<>();
@@ -39,6 +40,12 @@ public class FragKey {
         FragMap.put(mine_birth_fragment,"mine_birth_fragment");
         FragMap.put(mine_prize_fragment,"mine_prize_fragment");
         FragMap.put(prize_detail_fragment,"prize_detail_fragment");
+        FragMap.put(set_fragment,"set_fragment");
 
     }
+
+    public static final Integer[] NO_NEED_USER_FRAG = {
+            introduce_fragment
+    };
+
 }

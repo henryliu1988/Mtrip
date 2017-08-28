@@ -11,7 +11,7 @@ public class WebKey {
     public static final String WEBKEY_URL_COMMON = "http://59.110.24.36/yiduyi/index.php?s=App/Common/index";
     public static final String WEBKEY_URL_HUAN = "http://59.110.24.36/yiduyi/index.php?s=App/Huan/index";
 
-    public static final String WEBKEY_BASE = "http://59.110.24.36/yiduyi/";
+    public static final String WEBKEY_BASE = "";
     public static final String WEBKEY_URL_RES = "http://59.110.24.36/yiduyi/index.php?s=App/Common/imgUpload";
 
     public static final String WEBKEY_URL_ALIPAY = "http://59.110.24.36/alipay/index.php";
@@ -77,7 +77,6 @@ public class WebKey {
     public static final int func_backOrder = 1058;  //
 
 
-    public static final int func_ydypay = 2001;
 
     public static final Map<Integer, String> WEBKEY_FUNC_COMMON_MAP = new HashMap<Integer, String>();
 
@@ -148,9 +147,6 @@ public class WebKey {
         WEBKEY_FUNC_HUAN_MAP.put(func_backOrder, "backOrder");
 
     }
-    public static final Map<Integer, String> WEBKEY_FUNC_PAY_MAP = new HashMap<Integer, String>();
-    static {
-        WEBKEY_FUNC_PAY_MAP.put(func_ydypay,"ydypay");
-    }
+
 
 }

@@ -12,13 +12,16 @@ import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.presenter.contract.MainContract;
 import com.huohu.mtrip.presenter.presenter.MainPresenter;
+import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.view.fragment.ArFragment;
 import com.huohu.mtrip.view.fragment.HomeFragment;
 import com.huohu.mtrip.view.fragment.MapFragment;
 import com.huohu.mtrip.view.fragment.MineFragment;
 import com.huohu.mtrip.view.fragment.TitleFragment;
+import com.huohu.mtrip.view.wighet.MToast;
 import com.huohu.mtrip.view.wighet.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -52,6 +55,7 @@ public class MainActivity extends TitleActivity implements  MainContract.View{
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private MainContract.Presenter mPresenter;
+    private int lastIndex;
 
 
 
@@ -60,6 +64,7 @@ public class MainActivity extends TitleActivity implements  MainContract.View{
         fullScreenContent(true);
         ButterKnife.bind(this);
         new MainPresenter(this);
+        mViewpager.setNoScroll(true);
         mFragments.clear();
         mFragments.add(new HomeFragment());
         mFragments.add(new ArFragment());
@@ -74,6 +79,19 @@ public class MainActivity extends TitleActivity implements  MainContract.View{
         mMainTabs.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+                if (position == 3 ) {
+                    if (!UserData.getInstance().isLogin()) {
+                        ActivityUtils.showLogin(MainActivity.this, false);
+                        if (lastIndex == 0 || lastIndex == 1 || lastIndex == 2) {
+                            mMainTabs.setCurrentTab(lastIndex);
+                        } else {
+                            mMainTabs.setCurrentTab(0);
+                        }
+                        MToast.showToast("请先登录");
+                        return;
+                    }
+                }
+                lastIndex = position;
                 mViewpager.setCurrentItem(position);
             }
 

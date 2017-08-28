@@ -1,11 +1,14 @@
 package com.huohu.mtrip.model.data;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.huohu.mtrip.model.cache.SPUtils;
 import com.huohu.mtrip.model.entity.TokenInfo;
+import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.model.net.WebCall;
 import com.huohu.mtrip.model.net.WebKey;
@@ -13,10 +16,14 @@ import com.huohu.mtrip.model.net.WebResponse;
 import com.huohu.mtrip.model.net.WebUtils;
 import com.huohu.mtrip.model.refresh.RefreshKey;
 import com.huohu.mtrip.model.refresh.RefreshManager;
+import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.MD5;
 import com.huohu.mtrip.util.Utils;
+import com.huohu.mtrip.view.wighet.MToast;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -45,10 +52,13 @@ public class UserData {
         String paswordMd5 = MD5.GetMD5Code(password);
         map.put("mobile", phoneNum);
         map.put("password", paswordMd5);
+
+
       return  WebCall.getInstance().call(WebKey.func_login, map).map(new Func1<WebResponse, Map<String, Object>>() {
           @Override
           public Map<String, Object> call(WebResponse webResponse) {
               boolean status = WebUtils.getWebStatus(webResponse);
+              status = true;
               Map<String, Object> info = new HashMap<String, Object>();
               info.put("status", status);
               if (status) {
@@ -64,6 +74,7 @@ public class UserData {
       });
 
 
+
     }
 
     private void saveLogInfo(String phoneNum, String password) {
@@ -74,14 +85,33 @@ public class UserData {
 
     private void saveTokenInfo(Object tokenOb) {
         Map<String, Object> token = Utils.parseObjectToMapString(tokenOb);
+        token.put("id",1);
         if (token != null && token.size() > 0) {
             TokenInfo info = new TokenInfo();
+            info.setId(Utils.toString(token.get("id")));
+            info.setMobile(Utils.toString(token.get("mobile")));
+            info.setPassoword(Utils.toString(token.get("password")));
             Map<String, Object> headImg = Utils.parseObjectToMapString(token.get("head_img"));
+            info.setPhotoId(Utils.toString(headImg.get("id")));
+            info.setPhotoUrl(Utils.toString(headImg.get("path")));
+            info.setSex(Utils.toString(token.get("sex")));
+
             setToken(info);
             AppDataManager.getInstance().initLoginSucData();
         }
     }
 
+    public boolean needLogin(int fragkey, Activity activity) {
+        List<Integer> noUserFragList = Arrays.asList(FragKey.NO_NEED_USER_FRAG);
+        if (!noUserFragList.contains(fragkey) && !UserData.getInstance().isLogin())
+        {
+            ActivityUtils.showLogin(activity, false);
+            MToast.showToast("请先登录");
+            return true;
+        }
+        return false;
+
+    }
     public void setToken(TokenInfo token) {
         mToken = token;
     }

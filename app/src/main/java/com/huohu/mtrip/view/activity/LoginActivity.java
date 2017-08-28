@@ -49,7 +49,6 @@ public class LoginActivity extends TitleActivity implements LoginContract.View {
     protected void initView() {
         setContentLayout(R.layout.activity_login);
         ButterKnife.bind(this,getContentLayout());
-        fullScreenContent(true);
         backEnable(true);
         rigisterNow.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         setTitle("登录");

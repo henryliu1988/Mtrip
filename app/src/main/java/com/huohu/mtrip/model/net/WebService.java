@@ -41,9 +41,6 @@ public class WebService {
         } else if (WebKey.WEBKEY_FUNC_HUAN_MAP.containsKey(methodId)){
             methodName = WebKey.WEBKEY_FUNC_HUAN_MAP.get(methodId);
             url = WebKey.WEBKEY_URL_HUAN;
-        } else if (WebKey.WEBKEY_FUNC_PAY_MAP.containsKey(methodId)) {
-            methodName = WebKey.WEBKEY_FUNC_PAY_MAP.get(methodId);
-            url = WebKey.WEBKEY_URL_ALIPAY;
         } else {
             methodName = "";
             url = "";

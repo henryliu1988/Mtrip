@@ -7,16 +7,20 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.presenter.ActivityResultView;
 import com.huohu.mtrip.presenter.contract.PageImpContract;
 import com.huohu.mtrip.presenter.presenter.PageImpPresenter;
+import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.view.fragment.FragmentUtils;
 import com.huohu.mtrip.view.fragment.PagerFragmentFactory;
 import com.huohu.mtrip.view.fragment.StatedFragment;
+import com.huohu.mtrip.view.wighet.MToast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -40,6 +44,7 @@ public class PagerImpActivity extends TitleActivity implements PageImpContract.V
             finish();
             return;
         }
+
         new PageImpPresenter(this);
         setContentLayout(R.layout.activity_pager_imp);
         ButterKnife.bind(this);

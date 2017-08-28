@@ -32,7 +32,8 @@ public class PagerFragmentFactory
                 return new MinePrizeFragment();
             case FragKey.prize_detail_fragment:
                 return new PrizeDetailFragment();
-
+            case FragKey.set_fragment:
+                return new SetFragment();
         }
       return null;
     }

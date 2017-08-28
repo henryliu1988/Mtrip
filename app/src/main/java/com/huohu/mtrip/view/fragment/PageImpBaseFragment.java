@@ -19,9 +19,11 @@ import android.widget.LinearLayout;
 
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.app.MApplication;
+import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.presenter.ActivityResultView;
+import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.DateUtil;
 import com.huohu.mtrip.util.ImageUtils;
 import com.huohu.mtrip.util.ScreenUtils;
@@ -30,6 +32,8 @@ import com.huohu.mtrip.view.activity.PagerImpActivity;
 import com.huohu.mtrip.view.wighet.MToast;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/21 0021.
@@ -54,6 +58,9 @@ public abstract class PageImpBaseFragment extends TitleFragment
 
     protected void gotoFragment(int key)
     {
+        if (UserData.getInstance().needLogin(key,getActivity())) {
+            return;
+        }
         String tag = FragKey.FragMap.get(key);
         PageImpBaseFragment newFragment = PagerFragmentFactory.createFragment(key);
         if (!TextUtils.isEmpty(tag) && newFragment != null)
@@ -69,19 +76,12 @@ public abstract class PageImpBaseFragment extends TitleFragment
         inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
-    protected void gotoFragment(int key, Bundle bundle)
-    {
-        String tag = FragKey.FragMap.get(key);
-        PageImpBaseFragment newFragment = PagerFragmentFactory.createFragment(key);
-        if (!TextUtils.isEmpty(tag) && newFragment != null)
-        {
-            newFragment.setArguments(bundle);
-            FragmentUtils.changeFragment(getActivity(), this, newFragment, tag, getViewId());
-        }
-    }
 
     protected void gotoFragment(int key, String info)
     {
+        if (UserData.getInstance().needLogin(key,getActivity())) {
+            return;
+        }
         String tag = FragKey.FragMap.get(key);
         PageImpBaseFragment newFragment = PagerFragmentFactory.createFragment(key);
         if (!TextUtils.isEmpty(tag) && newFragment != null)
