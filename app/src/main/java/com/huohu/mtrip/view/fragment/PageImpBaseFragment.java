@@ -165,7 +165,7 @@ public abstract class PageImpBaseFragment extends TitleFragment
         ViewUtil.setCornerViewDrawbleBg(view,"#999999","#FFFFFF");
         dialog.getWindow().setContentView(view);
         dialog.getWindow().setLayout(ScreenUtils.getScreenWidth()/4*3, LinearLayout.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().findViewById(R.id.camera_tv).setOnClickListener(new View.OnClickListener() {
+        dialog.getWindow().findViewById(R.id.gallery_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -178,7 +178,7 @@ public abstract class PageImpBaseFragment extends TitleFragment
                 dialog.dismiss();
             }
         });
-        dialog.getWindow().findViewById(R.id.gallery_tv).setOnClickListener(new View.OnClickListener() {
+        dialog.getWindow().findViewById(R.id.camera_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
