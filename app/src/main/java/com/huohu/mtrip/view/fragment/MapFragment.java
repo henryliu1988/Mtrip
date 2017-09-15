@@ -42,7 +42,6 @@ public class MapFragment extends TitleFragment {
         setRightImageTips(R.mipmap.title_msg);
         needDiv(false);
         photoView.enable();
-        photoView.enableRotate();
         photoView.setScaleType(ImageView.ScaleType.CENTER);
         ImageUtils.getInstance().dispalyFromAssets("map.jpg", photoView);
         ViewUtil.setLeftCornerViewDrawbleBg(scaleAdd,"#89000000",60);

@@ -17,7 +17,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/banner_home"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 app:canLoop="true" />
 
             <LinearLayout
@@ -55,7 +55,7 @@
                 </RelativeLayout>
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:scaleType="centerCrop"
                     android:id="@+id/introduce_image"
                     android:layout_marginLeft="10dp"
@@ -96,7 +96,7 @@
                 </RelativeLayout>
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="180dp"
                     android:scaleType="centerCrop"
                     android:id="@+id/map_image"
                     android:layout_marginLeft="10dp"

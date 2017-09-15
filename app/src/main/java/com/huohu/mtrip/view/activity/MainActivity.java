@@ -11,8 +11,10 @@ import android.view.View;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.githang.statusbar.StatusBarCompat;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.presenter.contract.MainContract;
 import com.huohu.mtrip.presenter.presenter.MainPresenter;
 import com.huohu.mtrip.util.ActivityUtils;
@@ -30,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends TitleActivity implements  MainContract.View{
+public class MainActivity extends BaseActivity implements  MainContract.View{
 
     @BindView(R.id.m_main_tabs)
     CommonTabLayout mMainTabs;
@@ -57,12 +59,23 @@ public class MainActivity extends TitleActivity implements  MainContract.View{
     private MainContract.Presenter mPresenter;
     private int lastIndex;
 
-
-
-    public   void initView() {
-        setContentLayout(R.layout.activity_main);
-        fullScreenContent(true);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        int titleColor = getResources().getColor(R.color.title_bg);
+        StatusBarCompat.setFitsSystemWindows(getWindow(),true);
+        StatusBarCompat.setStatusBarColor(this,titleColor );
+        initView();
+    }
+    public  String getUserId() {
+        return UserData.getInstance().getUserId();
+    }
+    public void showToast(String toast) {
+        MToast.showToast(toast);
+    }
+    public   void initView() {
         new MainPresenter(this);
         mViewpager.setNoScroll(true);
         mFragments.clear();

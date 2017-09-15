@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.githang.statusbar.StatusBarCompat;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.key.FragKey;
@@ -28,27 +29,26 @@ import butterknife.ButterKnife;
 /**
  * Created by admin on 2016/8/9.
  */
-public class PagerImpActivity extends TitleActivity implements PageImpContract.View {
+public class PagerImpActivity extends BaseActivity implements PageImpContract.View {
 
 
     private PageImpContract.Presenter mPresenter;
 
-
-
     @Override
-    protected void initView() {
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getBundleExtra(IntentKey.INTENT_BUNDLE);
         int key = bundle.getInt(IntentKey.FRAG_KEY);
         if (!FragKey.FragMap.containsKey(key)) {
             finish();
             return;
         }
-
-        new PageImpPresenter(this);
-        setContentLayout(R.layout.activity_pager_imp);
+        setContentView(R.layout.activity_pager_imp);
         ButterKnife.bind(this);
-        fullScreenContent(true);
+        int titleColor = getResources().getColor(R.color.title_bg);
+        StatusBarCompat.setFitsSystemWindows(getWindow(),true);
+        StatusBarCompat.setStatusBarColor(this,titleColor );
+        new PageImpPresenter(this);
         StatedFragment fragment = PagerFragmentFactory.createFragment(key);
         if (fragment == null) {
             return;
@@ -62,6 +62,8 @@ public class PagerImpActivity extends TitleActivity implements PageImpContract.V
         FragmentUtils.addNewFragment(this, fragment, FragKey.FragMap.get(key), R.id.fragment_content);
 
     }
+
+
 
 
     public int getFragmentViewId() {

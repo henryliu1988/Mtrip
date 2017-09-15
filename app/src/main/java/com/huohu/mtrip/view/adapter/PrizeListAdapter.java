@@ -42,7 +42,7 @@ public class PrizeListAdapter extends ListViewAdapter<Map<String,Object>> {
         ImageView moreImage = (ImageView)holder.getView(R.id.item_more);
 
         ViewUtil.setCornerViewDrawbleBg(image,"#999999","#FFFFFF");
-        ImageUtils.getInstance().displayFromRemote(url,image);
+        ImageUtils.getInstance().dispalyFromAssets(url,image);
         prizeTimeTv.setText(prizeTime);
         if (status == 0) {
             ViewUtil.setVisible(image);

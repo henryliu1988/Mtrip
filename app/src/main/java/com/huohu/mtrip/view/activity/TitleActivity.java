@@ -24,18 +24,21 @@ public abstract class TitleActivity extends BaseActivity {
     protected FrameLayout mContentLayout;
     protected RelativeLayout mTitleLayout;
 
+    protected View mDivView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
         int titleColor = getResources().getColor(R.color.title_bg);
-        StatusBarCompat.setStatusBarColor(this,titleColor,true );
+        StatusBarCompat.setFitsSystemWindows(getWindow(),true);
+        StatusBarCompat.setStatusBarColor(this,titleColor );
 
         mCenterTv = (TextView)this.findViewById(R.id.title_name);
         mTitleBackIm = (ImageView)this.findViewById(R.id.title_back);
         mRightTv = (TextView)this.findViewById(R.id.right_tv);
         mTitleLayout = (RelativeLayout)this.findViewById(R.id.title_layout);
         mContentLayout = (FrameLayout)this.findViewById(R.id.content_layout);
+        mDivView = this.findViewById(R.id.div);
         ViewUtil.setGone(mRightTv);
         ViewUtil.setGone(mTitleBackIm);
         initView();
@@ -49,9 +52,11 @@ public abstract class TitleActivity extends BaseActivity {
 
     protected  void fullScreenContent(boolean full) {
         if (full) {
+            ViewUtil.setGone(mDivView);
             ViewUtil.setGone(mTitleLayout);
         } else {
             ViewUtil.setVisible(mTitleLayout);
+            ViewUtil.setVisible(mDivView);
         }
     }
     protected void backEnable(boolean enable) {

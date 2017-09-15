@@ -106,14 +106,14 @@ public class MinePrizeFragment extends PageImpBaseFragment {
         m.put("duration","2017-08-20 15:35");
         m.put("status",0);
         m.put("code","464313745446");
-        m.put("url","https://github.com/henryliu1988/Mtrip/blob/master/Image/kele.jpg");
+        m.put("url","kele.jpg");
         Map<String,Object> m1 = new HashMap<>();
-        m1.put("url","https://github.com/henryliu1988/Mtrip/blob/master/Image/kele.jpg");
         m1.put("prize_time","2017-08-20 15:35");
         m1.put("dui_time","2017-08-20 15:35");
         m1.put("duration","2017-08-20 15:35");
         m1.put("status",1);
         m1.put("code","464313745446");
+        m1.put("url","kele.jpg");
         Map<String,Object> m2 = new HashMap<>();
         m2.put("url","");
         m2.put("prize_time","2017-08-20 15:35");
@@ -121,7 +121,7 @@ public class MinePrizeFragment extends PageImpBaseFragment {
         m2.put("duration","2017-08-20 15:35");
         m2.put("status",2);
         m2.put("code","464313745446");
-        m2.put("url","https://github.com/henryliu1988/Mtrip/blob/master/Image/kele.jpg");
+        m2.put("url","kele.jpg");
         list.add(m);
         list.add(m1);
         list.add(m2);

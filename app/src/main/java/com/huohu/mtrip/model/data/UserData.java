@@ -86,9 +86,11 @@ public class UserData {
     private void saveTokenInfo(Object tokenOb) {
         Map<String, Object> token = Utils.parseObjectToMapString(tokenOb);
         token.put("id",1);
+        token.put("nickName","游客123");
         if (token != null && token.size() > 0) {
             TokenInfo info = new TokenInfo();
             info.setId(Utils.toString(token.get("id")));
+            info.setNickName(Utils.toString(token.get("nickName")));
             info.setMobile(Utils.toString(token.get("mobile")));
             info.setPassoword(Utils.toString(token.get("password")));
             Map<String, Object> headImg = Utils.parseObjectToMapString(token.get("head_img"));
@@ -111,6 +113,14 @@ public class UserData {
         }
         return false;
 
+    }
+
+
+    public  String getUserId() {
+        if (mToken == null) {
+            mToken = new TokenInfo();
+        }
+        return mToken.getId();
     }
     public void setToken(TokenInfo token) {
         mToken = token;

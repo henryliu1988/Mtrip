@@ -40,6 +40,7 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/div"
         style="@style/div_line"/>
     <FrameLayout
         android:id="@+id/content_layout"

@@ -76,8 +76,6 @@ public class MineFragment extends TitleFragment {
 
     }
 
-
-
     @OnClick({R.id.mine_info_layout, R.id.mine_score_layout, R.id.pet_layout, R.id.mine_prize_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
