@@ -18,14 +18,15 @@ public class ArFragment extends TitleFragment implements IOnFocusListenable {
     @Override
     protected void afterViewCreate() {
         fullScreenContent(true);
-
-        mUnityPlayer = new UnityPlayer(getActivity());
-        int glesMode = mUnityPlayer.getSettings().getInt("gles_mode", 1);
-        boolean trueColor8888 = false;
-        mUnityPlayer.init(glesMode, trueColor8888);
-        mUnityPlayer.requestFocus();
-        View playerView = mUnityPlayer.getView();
-        setContentLayout(playerView);
+        if (mUnityPlayer == null) {
+            mUnityPlayer = new UnityPlayer(getActivity());
+            int glesMode = mUnityPlayer.getSettings().getInt("gles_mode", 1);
+            boolean trueColor8888 = false;
+            mUnityPlayer.init(glesMode, trueColor8888);
+            mUnityPlayer.requestFocus();
+            View playerView = mUnityPlayer.getView();
+            setContentLayout(playerView);
+        }
     }
 
     public static ArFragment newInstance(int sectionNumber) {
