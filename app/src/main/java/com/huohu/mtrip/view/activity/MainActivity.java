@@ -15,6 +15,7 @@ import com.githang.statusbar.StatusBarCompat;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.entity.TokenInfo;
+import com.huohu.mtrip.presenter.IOnFocusListenable;
 import com.huohu.mtrip.presenter.contract.MainContract;
 import com.huohu.mtrip.presenter.presenter.MainPresenter;
 import com.huohu.mtrip.util.ActivityUtils;
@@ -32,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements  MainContract.View{
+public class MainActivity extends BaseActivity implements MainContract.View{
 
     @BindView(R.id.m_main_tabs)
     CommonTabLayout mMainTabs;
@@ -53,7 +54,7 @@ public class MainActivity extends BaseActivity implements  MainContract.View{
             R.mipmap.main_tab_home_on, R.mipmap.main_tab_ar_on, R.mipmap.main_tab_map_on, R.mipmap.main_tab_mine_on
     };
 
-    private List<TitleFragment> mFragments = new ArrayList<>();
+    private List<Fragment> mFragments = new ArrayList<>();
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private MainContract.Presenter mPresenter;
@@ -69,18 +70,19 @@ public class MainActivity extends BaseActivity implements  MainContract.View{
         StatusBarCompat.setStatusBarColor(this,titleColor );
         initView();
     }
-    public  String getUserId() {
+
+    public static  String getUserId() {
         return UserData.getInstance().getUserId();
     }
-    public void showToast(String toast) {
+    public static void showToast(final String toast) {
         MToast.showToast(toast);
     }
-    public   void initView() {
+    public  void initView() {
         new MainPresenter(this);
         mViewpager.setNoScroll(true);
         mFragments.clear();
         mFragments.add(new HomeFragment());
-        mFragments.add(new ArFragment());
+        mFragments.add(ArFragment.newInstance(2));
         mFragments.add(new MapFragment());
         mFragments.add(new MineFragment());
         for (int i = 0; i < mFragments.size(); i++) {
@@ -130,6 +132,17 @@ public class MainActivity extends BaseActivity implements  MainContract.View{
             }
         });
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        for (Fragment fragment:mFragments ) {
+            if (fragment instanceof IOnFocusListenable) {
+                ((IOnFocusListenable) fragment).onWindowFocusChanged(hasFocus);
+            }
+        }
+    }
+
     public void gotoTab(int index) {
         if (index > VIEW_SIZE - 1) {
             return;

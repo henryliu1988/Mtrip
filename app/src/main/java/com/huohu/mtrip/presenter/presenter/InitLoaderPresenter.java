@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.huohu.mtrip.model.cache.SPUtils;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.model.refresh.RefreshKey;
 import com.huohu.mtrip.model.refresh.RefreshManager;
@@ -35,6 +36,7 @@ public class InitLoaderPresenter implements InitLoaderContract.Presenter {
 
     public void tryLogInBackGroud() {
 
+
         String phoneNum = Utils.toString(SPUtils.get("login_phoneNum", ""));
         String passoword = Utils.toString(SPUtils.get("login_password", ""));
         boolean autoLogin = Utils.toBoolean(SPUtils.get("login_auto", false));
@@ -56,6 +58,10 @@ public class InitLoaderPresenter implements InitLoaderContract.Presenter {
                 mView.gotoMainTabs();
             }
         }
+        TokenInfo info1  = new TokenInfo();
+        info1.setId("fsad");
+        UserData.getInstance().setToken(info1);
+
     }
 
     @Override

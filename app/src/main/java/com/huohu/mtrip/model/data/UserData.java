@@ -85,7 +85,7 @@ public class UserData {
 
     private void saveTokenInfo(Object tokenOb) {
         Map<String, Object> token = Utils.parseObjectToMapString(tokenOb);
-        token.put("id",1);
+        token.put("id","11");
         token.put("nickName","游客123");
         if (token != null && token.size() > 0) {
             TokenInfo info = new TokenInfo();

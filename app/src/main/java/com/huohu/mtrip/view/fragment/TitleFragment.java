@@ -167,7 +167,7 @@ public abstract class TitleFragment extends StatedFragment {
     }
     protected void setContentLayout(View view) {
         mContentLayout.removeAllViews();
-        mContentLayout.addView(view);
+        mContentLayout.addView(view,FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
     }
     protected  void setContentLayout(int layoutId) {
         mContentLayout.removeAllViews();

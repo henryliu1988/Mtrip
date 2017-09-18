@@ -1,34 +1,76 @@
 package com.huohu.mtrip.view.fragment;
 
-import android.graphics.PixelFormat;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.view.View;
 
-import com.huohu.mtrip.R;
+import com.huohu.mtrip.presenter.IOnFocusListenable;
 import com.unity3d.player.UnityPlayer;
 
 /**
  * Created by Administrator on 2017/8/17 0017.
  */
 
-public class ArFragment extends TitleFragment {
+public class ArFragment extends TitleFragment implements IOnFocusListenable {
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
-
-    @Override
-    protected void initData() {
-        
-    }
-
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     @Override
     protected void afterViewCreate() {
         fullScreenContent(true);
-        getActivity().getWindow().setFormat(PixelFormat.RGBX_8888); // <--- This makes xperia play happy
 
         mUnityPlayer = new UnityPlayer(getActivity());
-        setContentLayout(mUnityPlayer);
+        int glesMode = mUnityPlayer.getSettings().getInt("gles_mode", 1);
+        boolean trueColor8888 = false;
+        mUnityPlayer.init(glesMode, trueColor8888);
         mUnityPlayer.requestFocus();
+        View playerView = mUnityPlayer.getView();
+        setContentLayout(playerView);
+    }
 
+    public static ArFragment newInstance(int sectionNumber) {
+        ArFragment fragment = new ArFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mUnityPlayer.resume();
 
     }
+
+    @Override
+    public void onDestroy() {
+        mUnityPlayer.quit();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mUnityPlayer.pause();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mUnityPlayer.configurationChanged(newConfig);
+    }
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        mUnityPlayer.windowFocusChanged(hasFocus);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
 
     @Override
     public void refreshView() {

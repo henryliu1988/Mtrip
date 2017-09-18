@@ -4,7 +4,7 @@ package com.huohu.mtrip.model.entity;
  * Created by Administrator on 2016/11/8 0008.
  */
 public class TokenInfo {
-    String id;
+    String id ;
     String nickName = "";
     String mobile = "";
     String passoword = "";
