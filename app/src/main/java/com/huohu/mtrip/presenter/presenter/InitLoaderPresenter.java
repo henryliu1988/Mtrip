@@ -58,9 +58,6 @@ public class InitLoaderPresenter implements InitLoaderContract.Presenter {
                 mView.gotoMainTabs();
             }
         }
-        TokenInfo info1  = new TokenInfo();
-        info1.setId("fsad");
-        UserData.getInstance().setToken(info1);
 
     }
 

@@ -37,11 +37,8 @@ public class WebService {
         String url;
         if (WebKey.WEBKEY_FUNC_COMMON_MAP.containsKey(methodId)) {
             methodName = WebKey.WEBKEY_FUNC_COMMON_MAP.get(methodId);
-            url = WebKey.WEBKEY_URL_COMMON;
-        } else if (WebKey.WEBKEY_FUNC_HUAN_MAP.containsKey(methodId)){
-            methodName = WebKey.WEBKEY_FUNC_HUAN_MAP.get(methodId);
-            url = WebKey.WEBKEY_URL_HUAN;
-        } else {
+            url = WebKey.WEBKEY_URL;
+        }  else {
             methodName = "";
             url = "";
         }
