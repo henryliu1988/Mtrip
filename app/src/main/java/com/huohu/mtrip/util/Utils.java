@@ -226,6 +226,36 @@ public class Utils {
         }
         return list;
     }
+    public static <T> T parseObjectToEntry(Object object, Class<T> tClass)
+    {
+
+        try
+        {
+            T t = JSON.parseObject(Utils.toString(object),tClass);
+            return t;
+        } catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    public static <T> List<T> parseObjectToListEntry(Object object, Class<T> tClass)
+    {
+        List<T> list = new ArrayList<>();
+
+        if (object == null)
+        {
+            return list;
+        }
+        try
+        {
+            list = JSON.parseArray(Utils.toString(object),tClass);
+        } catch (Exception e)
+        {
+
+        }
+        return list;
+    }
 
     public static Map<String, Object> parseObjectToMapString(Object object) {
         Map<String, Object> map = new HashMap<>();

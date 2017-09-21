@@ -1,11 +1,16 @@
 package com.huohu.mtrip.model.data;
 
-import java.util.ArrayList;
+import com.huohu.mtrip.model.entity.MsgInfo;
+import com.huohu.mtrip.model.net.WebCall;
+import com.huohu.mtrip.model.net.WebKey;
+import com.huohu.mtrip.model.net.WebResponse;
+import com.huohu.mtrip.util.Utils;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by Administrator on 2016/11/28 0028.
@@ -32,27 +37,36 @@ public class MsgData {
     public void loadData() {
     }
 
-    public Observable<List<Map<String,Object>>> getUnreadMsgList() {
-        List<Map<String,Object>> list = new ArrayList<>();
-        Map<String,Object> item = new HashMap<>();
-        item.put("content","ddddd");
-        item.put("addtime","07:46");
-        list.add(item);
-        return Observable.just(list);
+    public Observable<List<MsgInfo>> getUnreadMsgList() {
+        HashMap<String,Object> p = new HashMap();
+        p.put("memberid",UserData.getInstance().getUserId());
+        return WebCall.getInstance().call(WebKey.func_getmsglist,p).map(new Func1<WebResponse, List<MsgInfo>>() {
+            @Override
+            public List<MsgInfo> call(WebResponse webResponse) {
+                return Utils.parseObjectToListEntry(webResponse.getData(),MsgInfo.class);
+            }
+        });
+
     }
 
 
 
-    public Observable<List<Map<String,Object>>> getMsgListByType(int type) {
+    public Observable<List<MsgInfo>> getMsgListByType(int type) {
         if (type == NEW_MSG) {
             return getUnreadMsgList();
         } else {
             return getAllMsgList();
         }
     }
-    public Observable<List<Map<String,Object>>> getAllMsgList() {
-        List<Map<String,Object>> list = new ArrayList<>();
-        return Observable.just(list);
+    public Observable<List<MsgInfo>> getAllMsgList() {
+        HashMap<String,Object> p = new HashMap();
+        p.put("memberid",UserData.getInstance().getUserId());
+        return WebCall.getInstance().call(WebKey.func_getallmsglist,p).map(new Func1<WebResponse, List<MsgInfo>>() {
+            @Override
+            public List<MsgInfo> call(WebResponse webResponse) {
+                return Utils.parseObjectToListEntry(webResponse.getData(),MsgInfo.class);
+            }
+        });
     }
 
 

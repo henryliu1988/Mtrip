@@ -81,7 +81,7 @@ public class WebService {
                         status = Utils.toBoolean(m.get("status"));
                     }
 
-                    String data = Utils.toString(m.get("data"));
+                    String data = Utils.toString(m.get("token"));
                     if (TextUtils.isEmpty(data)) {
                         data = Utils.toString(m.get("msg"));
                     }

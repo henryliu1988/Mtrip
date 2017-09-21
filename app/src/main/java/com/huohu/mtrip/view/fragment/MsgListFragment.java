@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.MsgData;
+import com.huohu.mtrip.model.entity.MsgInfo;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.util.Utils;
@@ -43,7 +44,7 @@ public class MsgListFragment extends PageImpBaseFragment {
 
     public int type = MsgData.ALL_MSG;
 
-    private MsgItemAdapter mAdapter;
+    private MsgItemAdapter<MsgInfo> mAdapter;
     @Override
     protected void initData() {
         refreshView();
@@ -60,7 +61,7 @@ public class MsgListFragment extends PageImpBaseFragment {
         String title = Utils.toString(info.get("title"));
         type = Utils.toInteger(info.get("type"));
         setTitle(title);
-        mAdapter = new MsgItemAdapter(getContext());
+        mAdapter = new MsgItemAdapter<MsgInfo>(getContext());
         mList.setAdapter(mAdapter);
         refreshView();
     }
@@ -69,9 +70,9 @@ public class MsgListFragment extends PageImpBaseFragment {
 
     @Override
     public void refreshView() {
-        MsgData.getInstance().getMsgListByType(type).subscribe(new BaseSubscriber<List<Map<String, Object>>>() {
+        MsgData.getInstance().getMsgListByType(type).subscribe(new BaseSubscriber<List<MsgInfo>>() {
             @Override
-            public void onNext(List<Map<String, Object>> maps) {
+            public void onNext(List<MsgInfo> maps) {
                 mAdapter.refreshData(maps);
             }
         });

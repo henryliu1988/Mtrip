@@ -13,23 +13,22 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.huohu.mtrip.R;
-import com.huohu.mtrip.model.entity.MapParams;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
+import com.huohu.mtrip.model.net.WebCall;
+import com.huohu.mtrip.model.net.WebKey;
+import com.huohu.mtrip.model.net.WebResponse;
 import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.ImageUtils;
 import com.huohu.mtrip.util.Utils;
-import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.activity.MainActivity;
-import com.unity3d.player.UnityPlayer;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
 
 /**
  * Created by Administrator on 2017/8/17 0017.
@@ -86,22 +85,20 @@ public class HomeFragment extends TitleFragment {
 
     private void getBannerImage() {
 
-        List<Map<String,Object>> list = new ArrayList<>();
-        list.add(new MapParams().addParam("path","banner1.jpg").create() );
-        list.add(new MapParams().addParam("path","banner2.jpg").create() );
-        list.add(new MapParams().addParam("path","banner3.jpg").create() );
-        Observable.just(list).subscribe(new BaseSubscriber<List<Map<String, Object>>>() {
+        WebCall.getInstance().call(WebKey.func_getbanner,new HashMap<String, Object>()).subscribe(new BaseSubscriber<WebResponse>() {
             @Override
-            public void onNext(List<Map<String, Object>> images) {
+            public void onNext(WebResponse webResponse) {
+                Map<String,Object> data = Utils.parseObjectToMapString(webResponse.getReturnData());
+                boolean status = Utils.toBoolean(data.get("status"));
+                List<Map<String,Object>> tokenInfos= Utils.parseObjectToListMapString(data.get("token"));
                 bannerHome.setPages(
                         new CBViewHolderCreator<NetworkImageHolderView>() {
                             @Override
                             public NetworkImageHolderView createHolder() {
                                 return new NetworkImageHolderView();
                             }
-                        }, images).startTurning(3000)
+                        }, tokenInfos).startTurning(3000)
                         .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_page_indicator_focused});
-
             }
         });
     }
@@ -136,7 +133,7 @@ public class HomeFragment extends TitleFragment {
 
         @Override
         public void UpdateUI(Context context, int position, Map<String, Object> data) {
-            ImageUtils.getInstance().dispalyFromAssets(Utils.toString(data.get("path")), imageView);
+            ImageUtils.getInstance().displayFromRemote(Utils.toString(data.get("slide_pic")), imageView);
         }
     }
 }

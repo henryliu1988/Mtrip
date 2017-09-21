@@ -36,7 +36,6 @@ public class AppDataManager {
 
     public void initLoginSucData() {
         MsgData.getInstance().loadData();
-        UserData.getInstance().loadUserData();
     }
     public Observable<WebResponse> clearDataCache() {
         return Observable.create(new Observable.OnSubscribe<WebResponse>() {

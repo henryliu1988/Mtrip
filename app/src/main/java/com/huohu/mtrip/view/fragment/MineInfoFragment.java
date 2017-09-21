@@ -58,7 +58,7 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
     @Override
     protected void initData() {
         TokenInfo info = UserData.getInstance().getToken();
-        String realNameText = info.getNickName();
+        String realNameText = info.getUser_nicename();
         //realName.setText(realNameText);
         userNameValue.setText(Utils.toString(realNameText));
         int sex = Utils.toInteger(info.getSex());
@@ -67,7 +67,7 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
             userSexValue.setMap(item.getId(), item.getName());
         }
 
-        String photoPath = info.getPhotoUrl();
+        String photoPath = info.getAvatar();
         if (!TextUtils.isEmpty(photoPath)) {
             ImageUtils.getInstance().displayFromRemoteOver(photoPath, userPhoto);
         }

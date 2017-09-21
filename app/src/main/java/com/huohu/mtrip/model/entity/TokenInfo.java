@@ -4,14 +4,14 @@ package com.huohu.mtrip.model.entity;
  * Created by Administrator on 2016/11/8 0008.
  */
 public class TokenInfo {
-    String id ;
-    String nickName = "";
-    String mobile = "";
-    String passoword = "";
-    String sex = "";
-    String photoId = "";
-    String photoUrl = "";
-    String birth = "";
+
+
+    private String id;
+    private String mobile;
+    private String avatar;
+    private String user_nicename;
+    private String birthday;
+    private String sex;
 
     public String getId() {
         return id;
@@ -19,14 +19,6 @@ public class TokenInfo {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     public String getMobile() {
@@ -37,12 +29,28 @@ public class TokenInfo {
         this.mobile = mobile;
     }
 
-    public String getPassoword() {
-        return passoword;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setPassoword(String passoword) {
-        this.passoword = passoword;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getUser_nicename() {
+        return user_nicename;
+    }
+
+    public void setUser_nicename(String user_nicename) {
+        this.user_nicename = user_nicename;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public String getSex() {
@@ -51,29 +59,5 @@ public class TokenInfo {
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    public String getPhotoId() {
-        return photoId;
-    }
-
-    public void setPhotoId(String photoId) {
-        this.photoId = photoId;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
-
-    public String getBirth() {
-        return birth;
-    }
-
-    public void setBirth(String birth) {
-        this.birth = birth;
     }
 }

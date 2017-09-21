@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.MsgData;
+import com.huohu.mtrip.model.entity.MsgInfo;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.util.Utils;
@@ -36,14 +37,14 @@ public class MsgCateFragment extends PageImpBaseFragment {
         setTitle("消息");
 
         final FrameLayout contentLayout = getContentLayout();
-        MsgData.getInstance().getUnreadMsgList().subscribe(new BaseSubscriber<List<Map<String, Object>>>() {
+        MsgData.getInstance().getUnreadMsgList().subscribe(new BaseSubscriber<List<MsgInfo>>() {
             @Override
-            public void onNext(List<Map<String, Object>> maps) {
+            public void onNext(List<MsgInfo> msgDatas) {
                 LinearLayout layou = new LinearLayout(getContext());
                 layou.setOrientation(LinearLayout.VERTICAL);
                 contentLayout.addView(layou);
-                if (maps.size() > 0) {
-                    Map<String,Object> map = maps.get(0);
+                if (msgDatas.size() > 0) {
+                    MsgInfo data = msgDatas.get(0);
                     View view1 = LayoutInflater.from(getContext()).inflate(R.layout.msg_cate_item_layout, null);
                     ImageView imagew = (ImageView) view1.findViewById(R.id.image);
                     TextView title = (TextView) view1.findViewById(R.id.msg_title);
@@ -51,8 +52,8 @@ public class MsgCateFragment extends PageImpBaseFragment {
                     TextView timeTv = (TextView) view1.findViewById(R.id.msg_time);
                     imagew.setImageResource(R.mipmap.msg_unread);
                     title.setText("未读消息");
-                    content.setText(Utils.toString(map.get("content")));
-                    timeTv.setText(Utils.toString(map.get("addtime")));
+                    content.setText(Utils.toString(data.getContent()));
+                    timeTv.setText(Utils.toString(data.getAddtime()));
                     view1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

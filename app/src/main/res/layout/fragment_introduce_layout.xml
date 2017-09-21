@@ -5,19 +5,9 @@
     android:paddingTop="5dp"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/image"
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        />
+        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_text1"
-        android:textSize="16sp"
-        android:padding="4dp"
-        />
 </LinearLayout>

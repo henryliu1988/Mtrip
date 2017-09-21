@@ -14,12 +14,12 @@ import java.util.List;
  * Created by Administrator on 2017/8/19 0019.
  */
 
-public class MsgItemAdapter<T> extends ListViewAdapter {
+public class MsgItemAdapter<MsgInfo> extends ListViewAdapter {
 
     public MsgItemAdapter(Context context) {
-        super(context, new ArrayList<T>(), R.layout.adapter_msg_item);
+        super(context, new ArrayList<MsgInfo>(), R.layout.adapter_msg_item);
     }
-    public MsgItemAdapter(Context context, List<T> datas, int layoutId) {
+    public MsgItemAdapter(Context context, List<MsgInfo> datas, int layoutId) {
         super(context, datas, layoutId);
     }
 
