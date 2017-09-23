@@ -20,7 +20,7 @@ public class DateUtil {
     public static final String FORMAT_ONE = "yyyy年MM月dd日 HH:mm:ss";
 
     // 格式：年－月－日 小时：分钟
-    public static final String FORMAT_TWO = "yyyy年MM月dd日 HH:mm";
+    public static final String FORMAT_TWO = "yyyy-MM-dd HH:mm";
 
     // 格式：年月日 小时分钟秒
     public static final String FORMAT_THREE = "yyyyMMdd-HHmmss";
@@ -28,7 +28,7 @@ public class DateUtil {
     // 格式：年－月－日
     public static final String LONG_DATE_FORMAT = "yyyy年MM月dd日";
     public static final String LONG_DATE_FORMAT_1 = "yyyy/MM/dd";
-
+    public static final String LONG_DATE_FORMAT2 = "yyyy-MM-dd";
     // 格式：月－日
     public static final String SHORT_DATE_FORMAT = "MM-dd";
 

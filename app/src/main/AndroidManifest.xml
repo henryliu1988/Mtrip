@@ -26,8 +26,7 @@
 
         <activity
             android:name=".view.activity.LoginActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
@@ -43,27 +42,20 @@
         </activity>
         <activity
             android:name=".view.activity.ForgetPassWordActivity"
-            android:launchMode="singleTask"
 
             android:screenOrientation="portrait"/>
 
 
         <activity
             android:name=".view.activity.RegisterActivity"
-            android:launchMode="singleTask"
 
             android:screenOrientation="portrait">
-
-
-
         </activity>
         <activity
             android:name=".view.activity.PagerImpActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.ImageBrowsActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 

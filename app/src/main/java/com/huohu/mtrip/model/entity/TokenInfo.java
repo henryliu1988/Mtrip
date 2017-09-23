@@ -5,6 +5,17 @@ package com.huohu.mtrip.model.entity;
  */
 public class TokenInfo {
 
+    public TokenInfo() {
+
+    }
+    public TokenInfo(TokenInfo info) {
+        this.id = info.getId();
+        this.mobile = info.getMobile();
+        this.avatar = info.getAvatar();
+        this.user_nicename = info.getUser_nicename();
+        this.birthday = info.getBirthday();
+        this.sex = info.getSex();
+    }
 
     private String id;
     private String mobile;

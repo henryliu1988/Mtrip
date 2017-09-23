@@ -1,21 +1,24 @@
 package com.huohu.mtrip.view.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.model.key.FragKey;
+import com.huohu.mtrip.model.refresh.RefreshKey;
+import com.huohu.mtrip.model.refresh.RefreshManager;
+import com.huohu.mtrip.model.refresh.RefreshWithKey;
 import com.huohu.mtrip.util.ActivityUtils;
+import com.huohu.mtrip.util.ImageUtils;
+import com.huohu.mtrip.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/17 0017.
@@ -47,7 +50,12 @@ public class MineFragment extends TitleFragment {
 
     @Override
     protected void initData() {
+        TokenInfo info = UserData.getInstance().getToken();
 
+        ImageUtils.getInstance().displayFromRemoteOver(info.getAvatar(),photoImage);
+        nicknameTv.setText(info.getUser_nicename());
+        roleTv.setText("普通游客");
+        ViewUtil.setLeftCornerViewDrawbleBg(roleTv,"#B6DC65",11);
     }
 
 
@@ -59,6 +67,14 @@ public class MineFragment extends TitleFragment {
         setLeftText("设置");
         needDiv(false);
         setRightImageTips(R.mipmap.title_msg);
+        RefreshManager.getInstance().addNewListener(RefreshKey.USER_INFO_UPDATE, new RefreshWithKey() {
+            @Override
+            public void onRefreshWithKey(int key) {
+                if (key == RefreshKey.USER_INFO_UPDATE) {
+                    refreshView();
+                }
+            }
+        });
     }
 
     @Override
@@ -73,7 +89,7 @@ public class MineFragment extends TitleFragment {
 
     @Override
     public void refreshView() {
-
+        initData();
     }
 
     @OnClick({R.id.mine_info_layout, R.id.mine_score_layout, R.id.pet_layout, R.id.mine_prize_layout})

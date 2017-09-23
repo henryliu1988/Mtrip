@@ -10,6 +10,8 @@ import com.huohu.mtrip.model.net.WebCall;
 import com.huohu.mtrip.model.net.WebKey;
 import com.huohu.mtrip.model.net.WebResponse;
 import com.huohu.mtrip.model.net.WebUtils;
+import com.huohu.mtrip.model.refresh.RefreshKey;
+import com.huohu.mtrip.model.refresh.RefreshManager;
 import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.MD5;
 import com.huohu.mtrip.util.Utils;
@@ -88,6 +90,38 @@ public class UserData {
 
     }
 
+
+    public Observable<Boolean> updateUserInfo(final TokenInfo info) {
+        String id = UserData.getInstance().getToken().getId();
+        String user_nicename = info.getUser_nicename();
+
+        String sex = info.getSex();
+
+        String birth = info.getBirthday();
+
+        String avatar = info.getAvatar();
+
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("memberid",id);
+        map.put("user_nicename ",user_nicename);
+        map.put("sex",sex);
+        map.put("birthday",birth);
+        map.put("avatar",avatar);
+
+      return   WebCall.getInstance().call(WebKey.func_updatemember,map).map(new Func1<WebResponse, Boolean>() {
+          @Override
+          public Boolean call(WebResponse webResponse) {
+              boolean status =  WebUtils.getWebStatus(webResponse);
+              if (status) {
+                  UserData.getInstance().setToken(info);
+              }
+              RefreshManager.getInstance().refreshData(RefreshKey.USER_INFO_UPDATE);
+
+              return status;
+          }
+      });
+
+    }
 
     public  String getUserId() {
         if (mToken == null) {

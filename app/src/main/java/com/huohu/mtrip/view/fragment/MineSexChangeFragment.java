@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.DicData;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.TokenInfo;
+import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.view.adapter.SingleSelectAdapter;
 import com.huohu.mtrip.view.wighet.MToast;
 
@@ -49,6 +51,20 @@ public class MineSexChangeFragment extends PageImpBaseFragment {
             return;
         }
         back();
+        TokenInfo info = new TokenInfo(UserData.getInstance().getToken());
+        info.setSex(selId);
+        UserData.getInstance().updateUserInfo(info).subscribe(new BaseSubscriber<Boolean>(getContext(),"") {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                if (aBoolean) {
+                    MToast.showToast("修改信息成功");
+                    back();
+                }else {
+                    MToast.showToast("修改信息失败");
+
+                }
+            }
+        });
 
     }
 

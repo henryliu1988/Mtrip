@@ -1,10 +1,6 @@
 package com.huohu.mtrip.view.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,9 +12,13 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.PrizeInfo;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
-import com.huohu.mtrip.util.ActivityUtils;
+import com.huohu.mtrip.model.net.WebCall;
+import com.huohu.mtrip.model.net.WebKey;
+import com.huohu.mtrip.model.net.WebResponse;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.adapter.PrizeListAdapter;
@@ -30,8 +30,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import rx.Observable;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -51,8 +49,8 @@ public class MinePrizeFragment extends PageImpBaseFragment {
     RelativeLayout nullDataLayout;
     private String[] mTitles = {"待领取", "历史"};
     private ArrayList<CustomTabEntity> tabs = new ArrayList<>();
-    private List<Map<String, Object>> mUndoList = new ArrayList<>();
-    private List<Map<String, Object>> mDoneList = new ArrayList<>();
+    private List<PrizeInfo> mUndoList = new ArrayList<>();
+    private List<PrizeInfo> mDoneList = new ArrayList<>();
     private PrizeListAdapter mAdapter;
 
     @Override
@@ -82,17 +80,14 @@ public class MinePrizeFragment extends PageImpBaseFragment {
 
         mAdapter.setListener(new PrizeListAdapter.Listener() {
             @Override
-            public void onDui(Map<String, Object> item) {
-                if (item != null && item.size() > 0) {
-                    gotoPrizeDetailFragment(item);
-                }
+            public void onDui(PrizeInfo item) {
+                gotoPrizeDetailFragment(item);
             }
 
             @Override
-            public void onDetail(Map<String, Object> item) {
-                if (item != null && item.size() > 0) {
+            public void onDetail(PrizeInfo item) {
                     gotoPrizeDetailFragment(item);
-                }
+
             }
         });
         loadData();
@@ -125,40 +120,46 @@ public class MinePrizeFragment extends PageImpBaseFragment {
         list.add(m);
         list.add(m1);
         list.add(m2);
-        Observable.just(list).subscribe(new BaseSubscriber<List<Map<String, Object>>>(getContext(),"") {
+
+
+        HashMap<String,Object> p = new HashMap<>();
+        p.put("memberid", UserData.getInstance().getUserId());
+        WebCall.getInstance().call(WebKey.func_getwingoods,p).subscribe(new BaseSubscriber<WebResponse>(getContext(),"") {
             @Override
-            public void onNext(List<Map<String, Object>> maps) {
+            public void onNext(WebResponse webResponse) {
                 mListView.onRefreshComplete();
                 mUndoList.clear();
                 mDoneList.clear();
-                for (Map<String,Object> m : maps) {
-                    int status = Utils.toInteger(m.get("status"));
+
+                List<PrizeInfo> infos = Utils.parseObjectToListEntry(webResponse.getData(), PrizeInfo.class);
+                for (PrizeInfo info:infos) {
+                    int status  = Utils.toInteger(info.getWin_status());
                     switch (status) {
-                        case 0:
-                            mUndoList.add(m);
-                            break;
                         case 1:
+                            mUndoList.add(info);
+                            break;
                         case 2:
-                            mDoneList.add(m);
+                        case 3:
+                            mDoneList.add(info);
                             break;
                     }
                 }
                 updateAdapter();
             }
-
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
                 mListView.onRefreshComplete();
             }
         });
+
     }
-    private void gotoPrizeDetailFragment(  Map<String, Object> item ) {
+    private void gotoPrizeDetailFragment(  PrizeInfo item ) {
         gotoFragment(FragKey.prize_detail_fragment, JSONObject.toJSONString(item));
     }
     private void updateAdapter() {
         int tab = tabLayout.getCurrentTab();
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<PrizeInfo> list = new ArrayList<>();
         switch (tab) {
             case 0:
                 list.addAll(mUndoList);
@@ -191,7 +192,7 @@ public class MinePrizeFragment extends PageImpBaseFragment {
         setTitle("我的奖品");
         backEnable(true);
         ViewUtil.setGone(nullDataLayout);
-        mAdapter = new PrizeListAdapter(getActivity(), new ArrayList<Map<String,Object>>());
+        mAdapter = new PrizeListAdapter(getActivity(), new ArrayList<PrizeInfo>());
         mListView.setAdapter(mAdapter);
 
     }

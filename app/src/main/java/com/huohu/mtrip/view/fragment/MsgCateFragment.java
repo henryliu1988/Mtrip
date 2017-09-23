@@ -1,5 +1,6 @@
 package com.huohu.mtrip.view.fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,6 +14,7 @@ import com.huohu.mtrip.model.data.MsgData;
 import com.huohu.mtrip.model.entity.MsgInfo;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
+import com.huohu.mtrip.util.DateUtil;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 
@@ -36,13 +38,33 @@ public class MsgCateFragment extends PageImpBaseFragment {
         backEnable(true);
         setTitle("消息");
 
-        final FrameLayout contentLayout = getContentLayout();
+        FrameLayout contentLayout = getContentLayout();
+        contentLayout.removeAllViews();
+        final LinearLayout layout= new LinearLayout(getContext());
+        contentLayout.addView(layout);
+
+        View view2 = LayoutInflater.from(getContext()).inflate(R.layout.msg_cate_item_layout, null);
+        ImageView imagew = (ImageView) view2.findViewById(R.id.image);
+        imagew.setImageResource(R.mipmap.msg_all);
+        TextView title = (TextView) view2.findViewById(R.id.msg_title);
+        TextView content = (TextView) view2.findViewById(R.id.msg_content);
+        TextView timeTv = (TextView) view2.findViewById(R.id.msg_time);
+        imagew.setImageResource(R.mipmap.msg_system_img);
+        title.setText("全部消息");
+        view2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAllClick();
+            }
+        });
+        ViewUtil.setGone(content);
+        ViewUtil.setGone(timeTv);
+        layout.addView(view2);
+
         MsgData.getInstance().getUnreadMsgList().subscribe(new BaseSubscriber<List<MsgInfo>>() {
             @Override
             public void onNext(List<MsgInfo> msgDatas) {
-                LinearLayout layou = new LinearLayout(getContext());
-                layou.setOrientation(LinearLayout.VERTICAL);
-                contentLayout.addView(layou);
+                layout.setOrientation(LinearLayout.VERTICAL);
                 if (msgDatas.size() > 0) {
                     MsgInfo data = msgDatas.get(0);
                     View view1 = LayoutInflater.from(getContext()).inflate(R.layout.msg_cate_item_layout, null);
@@ -52,39 +74,20 @@ public class MsgCateFragment extends PageImpBaseFragment {
                     TextView timeTv = (TextView) view1.findViewById(R.id.msg_time);
                     imagew.setImageResource(R.mipmap.msg_unread);
                     title.setText("未读消息");
-                    content.setText(Utils.toString(data.getContent()));
-                    timeTv.setText(Utils.toString(data.getAddtime()));
+                    content.setText(Html.fromHtml(data.getContent()));
+                    timeTv.setText( DateUtil.getTimeDiffDayCurrent(Utils.toLong(data.getAddtime())));
                     view1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             onUnreadClick();
                         }
                     });
-                    layou.addView(view1);
+                    layout.addView(view1,0);
                 }
 
 
-                View view2 = LayoutInflater.from(getContext()).inflate(R.layout.msg_cate_item_layout, null);
-                ImageView imagew = (ImageView) view2.findViewById(R.id.image);
-                imagew.setImageResource(R.mipmap.msg_all);
-                TextView title = (TextView) view2.findViewById(R.id.msg_title);
-                TextView content = (TextView) view2.findViewById(R.id.msg_content);
-                TextView timeTv = (TextView) view2.findViewById(R.id.msg_time);
-                imagew.setImageResource(R.mipmap.msg_system_img);
-                title.setText("全部消息");
-                view2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onAllClick();
-                    }
-                });
-                ViewUtil.setGone(content);
-                ViewUtil.setGone(timeTv);
-                layou.addView(view2);
-
             }
         });
-
 
     }
 

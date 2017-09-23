@@ -13,7 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.data.MsgData;
 import com.huohu.mtrip.model.key.IntentKey;
+import com.huohu.mtrip.model.refresh.RefreshKey;
+import com.huohu.mtrip.model.refresh.RefreshManager;
+import com.huohu.mtrip.model.refresh.RefreshWithData;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.wighet.ImageTipsView;
@@ -142,11 +146,26 @@ public abstract class TitleFragment extends StatedFragment {
                 onRightTipViewClick();
             }
         });
+        int count = MsgData.getInstance().getUnreadCount();
+        String msg = count > 0 ? count+ "" :"";
+        mTipView.setTipText(msg);
+        RefreshManager.getInstance().addNewListener(RefreshKey.MSG_UNREAD_COUNT_UPDATE, new RefreshWithData() {
+            @Override
+            public void onRefreshWithData(int key, Object data) {
+                int count = Utils.toInteger(data);
+                String msg = count > 0 ? count+ "" :"";
+                if (mTipView != null) {
+                    mTipView.setTipText(msg);
+                }
+            }
+        });
     }
 
     protected  void onRightTipViewClick() {
 
     }
+
+
     protected  void setTipsCount(String count) {
         ViewUtil.setVisible(mTipView);
         mTipView.setTipText(count);

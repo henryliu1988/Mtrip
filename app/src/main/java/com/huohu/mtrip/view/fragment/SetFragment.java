@@ -1,23 +1,24 @@
 package com.huohu.mtrip.view.fragment;
 
 import android.app.AlertDialog;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huohu.mtrip.R;
+import com.huohu.mtrip.model.data.AppDataManager;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.net.BaseSubscriber;
+import com.huohu.mtrip.model.net.WebResponse;
 import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.ScreenUtils;
 import com.huohu.mtrip.util.ViewUtil;
+import com.huohu.mtrip.view.wighet.MToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/28.
@@ -45,6 +46,14 @@ public class SetFragment extends PageImpBaseFragment {
         cacheLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppDataManager.getInstance().clearDataCache().subscribe(new BaseSubscriber<WebResponse>(getContext(),"请稍后，请在删除缓存")
+                {
+                    @Override
+                    public void onNext(WebResponse response)
+                    {
+                        MToast.showToast("清除缓存成功");
+                    }
+                });
 
             }
         });

@@ -34,6 +34,8 @@ public class PagerFragmentFactory
                 return new PrizeDetailFragment();
             case FragKey.set_fragment:
                 return new SetFragment();
+            case FragKey.msg_detail_fragment:
+                return new MsgDetailFragment();
         }
       return null;
     }

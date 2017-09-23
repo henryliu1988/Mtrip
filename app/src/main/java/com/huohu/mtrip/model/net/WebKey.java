@@ -28,6 +28,7 @@ public class WebKey {
     public static final int func_getmsglist = 1009;  //介绍
     public static final int func_getwingoods = 1010;  //介绍
 
+    public static final int func_updatemember = 1011;  //介绍
 
 
 
@@ -40,6 +41,7 @@ public class WebKey {
         WEBKEY_FUNC_COMMON_MAP.put(func_getallmsglist, "getallmsglist");
         WEBKEY_FUNC_COMMON_MAP.put(func_getmsglist, "getmsglist");
         WEBKEY_FUNC_COMMON_MAP.put(func_getwingoods, "getwingoods");
+        WEBKEY_FUNC_COMMON_MAP.put(func_updatemember, "updatemember");
 
     }
 

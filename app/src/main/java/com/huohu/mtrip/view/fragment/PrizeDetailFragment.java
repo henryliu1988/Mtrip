@@ -4,13 +4,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huohu.mtrip.R;
-import com.huohu.mtrip.model.key.SelectKey;
+import com.huohu.mtrip.model.entity.PrizeInfo;
+import com.huohu.mtrip.util.DateUtil;
 import com.huohu.mtrip.util.ImageUtils;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +33,7 @@ public class PrizeDetailFragment extends PageImpBaseFragment {
     TextView codeTv;
 
 
-    private Map<String,Object> mItemData = new HashMap<>();
+    private PrizeInfo info = new PrizeInfo();
     @Override
     protected void initData() {
 
@@ -46,19 +44,23 @@ public class PrizeDetailFragment extends PageImpBaseFragment {
         setContentLayout(R.layout.fragment_prize_detail);
         ButterKnife.bind(this, getContentLayout());
         backEnable(true);
-        mItemData = Utils.parseObjectToMapString(mArgInfo);
-        if (Utils.isEmptyObject(mItemData)) {
+        info = Utils.parseObjectToEntry(mArgInfo,PrizeInfo.class);
+        if (info== null) {
             return;
         }
 
-        String url = Utils.toString(mItemData.get("url"));
+        String url = info.getImg();
         ImageUtils.getInstance().dispalyFromAssets(url,image);
 
         ViewUtil.setCornerViewDrawbleBg(image,"#999999","#FFFFFF");
-        int state = Utils.toInteger(mItemData.get("status"));
-        prizeGetTime.setText("获奖时间：" + Utils.toString(mItemData.get("prize_time")));
-        prizeDuration.setText("有效期：" + Utils.toString(mItemData.get("duration")));
-        if (state == 0) {
+        int state = Utils.toInteger(info.getWin_status());
+
+        String addTime = DateUtil.getFullTimeDiffDayCurrent(Utils.toLong(info.getAdd_time()));
+        String duration = DateUtil.getFullTimeDiffDayCurrent(Utils.toLong(info.getAdd_time()));
+        String duiTime = DateUtil.getFullTimeDiffDayCurrent(Utils.toLong(info.getDui_time()));
+        prizeGetTime.setText("获奖时间：" + addTime);
+        prizeDuration.setText("有效期：" +duration);
+        if (state == 1) {
             setTitle("兑换");
             ViewUtil.setInVisible(statusTv);
             ViewUtil.setInVisible(prizeDuiTime);
@@ -66,20 +68,19 @@ public class PrizeDetailFragment extends PageImpBaseFragment {
         } else{
             setTitle("兑换详情");
             ViewUtil.setVisible(statusTv);
-            if (state == 1) {
+            if (state == 2) {
                 ViewUtil.setVisible(prizeDuiTime);
                 statusTv.setTextColor(Utils.getColorFormResource(R.color.title_bg));
-                prizeDuiTime.setText(Utils.toString("兑换时间：" +mItemData.get("dui_time")));
+                prizeDuiTime.setText("兑换时间：" +duiTime);
                 statusTv.setText("兑换成功");
             } else {
                 ViewUtil.setInVisible(prizeDuiTime);
                 statusTv.setTextColor(Utils.getColorFormResource(R.color.red));
                 statusTv.setText("有效期超时，兑换失败");
-
             }
         }
 
-        String code = Utils.toString(mItemData.get("code"));
+        String code = info.getMarks();
         ViewUtil.setCornerViewDrawbleBg(codeTv,"#FFFFFF","#999999",1,8);
         codeTv.setText(code);
     }

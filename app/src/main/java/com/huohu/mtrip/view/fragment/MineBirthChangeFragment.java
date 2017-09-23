@@ -1,17 +1,14 @@
 package com.huohu.mtrip.view.fragment;
 
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.huohu.mtrip.R;
-import com.huohu.mtrip.model.entity.PickViewData;
+import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.TokenInfo;
+import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.util.DateUtil;
 import com.huohu.mtrip.view.wighet.MToast;
 
@@ -19,7 +16,6 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -71,7 +67,22 @@ public class MineBirthChangeFragment extends PageImpBaseFragment {
             MToast.showToast("请选择您的出生日期");
             return;
         }
-        back();
+        Date date1 = DateUtil.stringtoDate(date,DateUtil.LONG_DATE_FORMAT);
+        String strDate = DateUtil.dateToString(date1,DateUtil.LONG_DATE_FORMAT2);
+        TokenInfo info = new TokenInfo(UserData.getInstance().getToken());
+        info.setBirthday(strDate);
+        UserData.getInstance().updateUserInfo(info).subscribe(new BaseSubscriber<Boolean>(getContext(),"") {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                if (aBoolean) {
+                    MToast.showToast("修改信息成功");
+                    back();
+                }else {
+                    MToast.showToast("修改信息失败");
+
+                }
+            }
+        });
     }
 
     @Override

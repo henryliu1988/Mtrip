@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.MsgData;
 import com.huohu.mtrip.model.entity.MsgInfo;
+import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.util.Utils;
@@ -44,7 +47,7 @@ public class MsgListFragment extends PageImpBaseFragment {
 
     public int type = MsgData.ALL_MSG;
 
-    private MsgItemAdapter<MsgInfo> mAdapter;
+    private MsgItemAdapter mAdapter;
     @Override
     protected void initData() {
         refreshView();
@@ -61,8 +64,16 @@ public class MsgListFragment extends PageImpBaseFragment {
         String title = Utils.toString(info.get("title"));
         type = Utils.toInteger(info.get("type"));
         setTitle(title);
-        mAdapter = new MsgItemAdapter<MsgInfo>(getContext());
+        mAdapter = new MsgItemAdapter(getContext());
         mList.setAdapter(mAdapter);
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MsgInfo info = (MsgInfo)parent.getAdapter().getItem(position);
+                String jsonString = JSON.toJSONString(info);
+                gotoFragment(FragKey.msg_detail_fragment,jsonString);
+            }
+        });
         refreshView();
     }
 
@@ -70,7 +81,7 @@ public class MsgListFragment extends PageImpBaseFragment {
 
     @Override
     public void refreshView() {
-        MsgData.getInstance().getMsgListByType(type).subscribe(new BaseSubscriber<List<MsgInfo>>() {
+        MsgData.getInstance().getMsgListByType(type).subscribe(new BaseSubscriber<List<MsgInfo>>(getContext(),true) {
             @Override
             public void onNext(List<MsgInfo> maps) {
                 mAdapter.refreshData(maps);

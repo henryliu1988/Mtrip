@@ -5,6 +5,8 @@ import android.widget.EditText;
 
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.UserData;
+import com.huohu.mtrip.model.entity.TokenInfo;
+import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.view.wighet.MToast;
 
 import butterknife.BindView;
@@ -43,7 +45,20 @@ public class MineNameChangeFragment extends PageImpBaseFragment {
             MToast.showToast("请输入昵称");
             return;
         }
-        back();
+        TokenInfo info = new TokenInfo(UserData.getInstance().getToken());
+        info.setUser_nicename(name);
+        UserData.getInstance().updateUserInfo(info).subscribe(new BaseSubscriber<Boolean>(getContext(),"") {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                if (aBoolean) {
+                    MToast.showToast("修改信息成功");
+                    back();
+                }else {
+                    MToast.showToast("修改信息失败");
+
+                }
+            }
+        });
     }
 
     @Override

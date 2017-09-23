@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
-import com.huohu.mtrip.app.MApplication;
 import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.view.activity.ImageBrowsActivity;
@@ -116,11 +115,12 @@ public class ActivityUtils {
     }
 
     public static void showLogin(Activity context, boolean finish) {
-        if (finish) {
-            finishAllActivity();
-        }
-        Intent intent = new Intent(MApplication.getInstance().getContext(), LoginActivity.class);
+
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
+        if(finish){
+            finishActivityExceptOne(LoginActivity.class);
+        }
     }
 
     public static void showImageBrowse(Context context, List<Map<String,Object>> images,int position) {

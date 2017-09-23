@@ -7,7 +7,8 @@ public class RefreshKey {
 
 
 
-    public static final int IDENTIFY_MSG_UPDATE = 10;
+    public static final int MSG_UNREAD_COUNT_UPDATE = 10;
+    public static final int USER_INFO_UPDATE = 11;
 
 
 

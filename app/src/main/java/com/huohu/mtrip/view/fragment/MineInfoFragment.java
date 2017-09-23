@@ -16,6 +16,9 @@ import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.entity.NormalItem;
 import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.model.key.FragKey;
+import com.huohu.mtrip.model.refresh.RefreshKey;
+import com.huohu.mtrip.model.refresh.RefreshManager;
+import com.huohu.mtrip.model.refresh.RefreshWithKey;
 import com.huohu.mtrip.presenter.ActivityResultView;
 import com.huohu.mtrip.util.ImageUtils;
 import com.huohu.mtrip.util.Utils;
@@ -71,7 +74,7 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
         if (!TextUtils.isEmpty(photoPath)) {
             ImageUtils.getInstance().displayFromRemoteOver(photoPath, userPhoto);
         }
-
+        userDateValue.setText(info.getBirthday());
     }
 
     @Override
@@ -81,11 +84,20 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
         backEnable(true);
         setTitle("个人资料");
         addOnActivityResultView(this);
+        RefreshManager.getInstance().addNewListener(RefreshKey.USER_INFO_UPDATE, new RefreshWithKey() {
+            @Override
+            public void onRefreshWithKey(int key) {
+                if (key == RefreshKey.USER_INFO_UPDATE) {
+                    refreshView();
+                }
+            }
+        });
+
     }
 
     @Override
     public void refreshView() {
-
+        initData();
     }
 
     @OnClick({R.id.user_photo, R.id.user_name_value, R.id.user_sex_value, R.id.user_birth_value})
@@ -168,4 +180,6 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
         removeOnActivityResultView(this);
         super.onDestroy();
     }
+
+
 }
