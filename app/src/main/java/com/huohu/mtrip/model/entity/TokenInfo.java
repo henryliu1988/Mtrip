@@ -17,12 +17,12 @@ public class TokenInfo {
         this.sex = info.getSex();
     }
 
-    private String id;
-    private String mobile;
-    private String avatar;
-    private String user_nicename;
-    private String birthday;
-    private String sex;
+    private String id = "";
+    private String mobile = "";
+    private String avatar = "";
+    private String user_nicename = "";
+    private String birthday = "";
+    private String sex = "";
 
     public String getId() {
         return id;
