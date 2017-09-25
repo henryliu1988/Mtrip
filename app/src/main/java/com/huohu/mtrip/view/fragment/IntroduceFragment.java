@@ -31,11 +31,13 @@ public class IntroduceFragment extends PageImpBaseFragment {
 
     @Override
     protected void initData() {
-
         WebCall.getInstance().call(WebKey.func_getshow,new HashMap<String, Object>()).subscribe(new BaseSubscriber<WebResponse>() {
             @Override
             public void onNext(WebResponse webResponse) {
                 String url = webResponse.getData();
+                if (url.startsWith("/")) {
+                    url =  url.substring(1);
+                }
                 webView.loadUrl(WebKey.WEBKEY_BASE + url);
                 webView.setWebViewClient(new WebViewClient() {
                     @Override

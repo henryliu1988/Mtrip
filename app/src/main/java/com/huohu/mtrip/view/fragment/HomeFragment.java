@@ -69,7 +69,7 @@ public class HomeFragment extends TitleFragment {
                 ActivityUtils.transToFragPagerActivity(getActivity(), FragKey.introduce_fragment,null,false);
             }
         });
-        ImageUtils.getInstance().dispalyFromAssets("intro.jpg",introduceImage);
+        ImageUtils.getInstance().dispalyFromAssets("intro.png",introduceImage);
        // ViewUtil.setRightCornerViewDrawbleBg(introduceTitleTv,"#FFD000",60);
         mapDetailTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +133,12 @@ public class HomeFragment extends TitleFragment {
 
         @Override
         public void UpdateUI(Context context, int position, Map<String, Object> data) {
-            ImageUtils.getInstance().displayFromRemote(Utils.toString(data.get("slide_pic")), imageView);
+            String url = Utils.toString(data.get("slide_pic"));
+            if (url.startsWith("/")) {
+                url = url.substring(1);
+            }
+            url = "data/upload/" + url;
+            ImageUtils.getInstance().displayFromRemote(url, imageView);
         }
     }
 }

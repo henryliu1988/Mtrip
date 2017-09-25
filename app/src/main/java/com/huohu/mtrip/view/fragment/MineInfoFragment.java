@@ -16,23 +16,33 @@ import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.model.entity.NormalItem;
 import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.model.key.FragKey;
+import com.huohu.mtrip.model.net.BaseSubscriber;
+import com.huohu.mtrip.model.net.FileUpLoad;
+import com.huohu.mtrip.model.net.WebResponse;
+import com.huohu.mtrip.model.net.WebUtils;
 import com.huohu.mtrip.model.refresh.RefreshKey;
 import com.huohu.mtrip.model.refresh.RefreshManager;
 import com.huohu.mtrip.model.refresh.RefreshWithKey;
 import com.huohu.mtrip.presenter.ActivityResultView;
 import com.huohu.mtrip.util.ImageUtils;
 import com.huohu.mtrip.util.Utils;
+import com.huohu.mtrip.util.ViewKey;
 import com.huohu.mtrip.view.wighet.MToast;
 import com.huohu.mtrip.view.wighet.MapTextView;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -148,7 +158,7 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
         }
     }
     private void beginCrop(Uri source) {
-        Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "cropped"));
+        Uri destination = Uri.fromFile(new File(getActivity().getCacheDir(), "temp.jpg"));
         Crop.of(source, destination).asSquare().start(getActivity());
     }
     private void handleCrop(int resultCode, Intent result) {
@@ -162,6 +172,37 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
     }
 
     private void updateMemberPhoto(String path) {
+        List<Map<String, Object>> files = new ArrayList<>();
+        final Map<String, Object> file = new HashMap<>();
+        file.put(ViewKey.FILE_KEY_TYPE, ViewKey.TYPE_FILE_PATH);
+        file.put(ViewKey.FILE_KEY_URL, path);
+        files.add(file);
+        FileUpLoad.uploadFiles(files).flatMap(new Func1<List<Map<String, Object>>, Observable<Boolean>>() {
+            @Override
+            public Observable<Boolean> call(List<Map<String, Object>> files) {
+                if (files.size() < 1) {
+                    return Observable.just(false);
+                } else {
+                    String url = Utils.toString(files.get(0).get("url"));
+                    TokenInfo info = new TokenInfo(UserData.getInstance().getToken());
+                    info.setAvatar(url);
+                    return UserData.getInstance().updateUserInfo(info);
+                }
+            }
+        }).subscribe(new BaseSubscriber<Boolean>(getContext(), "正在上传头像") {
+            @Override
+            public void onNext(Boolean result) {
+                if (result) {
+                    TokenInfo info = UserData.getInstance().getToken();
+                    String photoPath = info.getAvatar();
+                    if (!TextUtils.isEmpty(photoPath)) {
+                        ImageUtils.getInstance().displayFromRemoteOver(photoPath, userPhoto);
+                    }
+                } else {
+                    MToast.showToast("上传失败");
+                }
+            }
+        });
 
     }
     @Override

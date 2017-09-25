@@ -109,13 +109,8 @@ public class FileUpLoad {
         return Observable.create(new Observable.OnSubscribe<Map<String, Object>>() {
             @Override
             public void call(final Subscriber<? super Map<String, Object>> subscriber) {
-                LGImgCompressor.CompressResult compressResult = LGImgCompressor.getInstance().compressSync(file.getPath(),700,480,1024);
-                File fileUpload = file;
-                if (compressResult != null && compressResult.getStatus() == LGImgCompressor.CompressResult.RESULT_OK && !TextUtils.isEmpty(compressResult.getOutPath())){
-                    String fileUpPath = compressResult.getOutPath();
-                    fileUpload = new File(fileUpPath);
-                }
-                Map<String, Object> result = uploadFileService(fileUpload, params);
+
+                Map<String, Object> result = uploadFileService(file, params);
                 if (result.size() > 0 && Utils.toBoolean(result.get("status"))) {
                     subscriber.onNext(result);
                 } else {

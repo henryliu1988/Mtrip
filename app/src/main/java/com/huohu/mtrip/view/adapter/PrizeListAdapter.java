@@ -41,7 +41,7 @@ public class PrizeListAdapter extends ListViewAdapter<PrizeInfo> {
         ImageView moreImage = (ImageView)holder.getView(R.id.item_more);
 
         ViewUtil.setCornerViewDrawbleBg(image,"#999999","#FFFFFF");
-        ImageUtils.getInstance().dispalyFromAssets(url,image);
+        ImageUtils.getInstance().displayFromRemote(url,image);
         prizeTimeTv.setText(prizeTime);
         if (status == 1) {
             ViewUtil.setVisible(image);

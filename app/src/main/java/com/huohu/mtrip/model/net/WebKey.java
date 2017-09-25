@@ -30,11 +30,13 @@ public class WebKey {
 
     public static final int func_updatemember = 1011;  //介绍
 
+    public static final int func_addreadlog = 1012;  //介绍
 
 
     public static final Map<Integer, String> WEBKEY_FUNC_COMMON_MAP = new HashMap<Integer, String>();
 
     static {
+        WEBKEY_FUNC_COMMON_MAP.put(func_register, "register");
         WEBKEY_FUNC_COMMON_MAP.put(func_login, "login");
         WEBKEY_FUNC_COMMON_MAP.put(func_getbanner, "getbanner");
         WEBKEY_FUNC_COMMON_MAP.put(func_getshow, "getshow");
@@ -42,6 +44,9 @@ public class WebKey {
         WEBKEY_FUNC_COMMON_MAP.put(func_getmsglist, "getmsglist");
         WEBKEY_FUNC_COMMON_MAP.put(func_getwingoods, "getwingoods");
         WEBKEY_FUNC_COMMON_MAP.put(func_updatemember, "updatemember");
+        WEBKEY_FUNC_COMMON_MAP.put(func_addreadlog, "addreadlog");
+        WEBKEY_FUNC_COMMON_MAP.put(func_sendSms, "sendmmsg");
+        WEBKEY_FUNC_COMMON_MAP.put(func_reset, "repass");
 
     }
 

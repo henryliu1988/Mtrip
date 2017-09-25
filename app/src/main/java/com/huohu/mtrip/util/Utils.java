@@ -252,7 +252,10 @@ public class Utils {
             list = JSON.parseArray(Utils.toString(object),tClass);
         } catch (Exception e)
         {
-
+            return list;
+        }
+        if (list == null) {
+            list = new ArrayList<>();
         }
         return list;
     }

@@ -50,7 +50,7 @@ public class PrizeDetailFragment extends PageImpBaseFragment {
         }
 
         String url = info.getImg();
-        ImageUtils.getInstance().dispalyFromAssets(url,image);
+        ImageUtils.getInstance().displayFromRemote(url,image);
 
         ViewUtil.setCornerViewDrawbleBg(image,"#999999","#FFFFFF");
         int state = Utils.toInteger(info.getWin_status());

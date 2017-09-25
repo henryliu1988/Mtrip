@@ -56,6 +56,15 @@ public class MineFragment extends TitleFragment {
         nicknameTv.setText(info.getUser_nicename());
         roleTv.setText("普通游客");
         ViewUtil.setLeftCornerViewDrawbleBg(roleTv,"#B6DC65",11);
+        RefreshManager.getInstance().addNewListener(RefreshKey.USER_INFO_UPDATE, new RefreshWithKey() {
+            @Override
+            public void onRefreshWithKey(int key) {
+                if (key == RefreshKey.USER_INFO_UPDATE) {
+                    refreshView();
+                }
+            }
+        });
+
     }
 
 
@@ -67,14 +76,6 @@ public class MineFragment extends TitleFragment {
         setLeftText("设置");
         needDiv(false);
         setRightImageTips(R.mipmap.title_msg);
-        RefreshManager.getInstance().addNewListener(RefreshKey.USER_INFO_UPDATE, new RefreshWithKey() {
-            @Override
-            public void onRefreshWithKey(int key) {
-                if (key == RefreshKey.USER_INFO_UPDATE) {
-                    refreshView();
-                }
-            }
-        });
     }
 
     @Override

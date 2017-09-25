@@ -185,6 +185,9 @@ public class ImageUtils {
     }
 
     public void displayFromRemote(String imageurl, ImageView imageView) {
+        if (imageurl.startsWith("/")) {
+            imageurl = imageurl.substring(1);
+        }
         String encodedUrl = WebKey.WEBKEY_BASE + transition(imageurl);
         ImageLoader.getInstance().displayImage(encodedUrl, imageView, getSimpleOptions());
     }
