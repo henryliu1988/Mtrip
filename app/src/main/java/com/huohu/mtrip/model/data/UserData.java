@@ -103,7 +103,7 @@ public class UserData {
 
         HashMap<String,Object> map = new HashMap<>();
         map.put("memberid",id);
-        map.put("user_nicename ",user_nicename);
+        map.put("user_nicename",user_nicename);
         map.put("sex",sex);
         map.put("birthday",birth);
         map.put("avatar",avatar);

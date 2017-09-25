@@ -16,6 +16,9 @@ import com.huohu.mtrip.model.entity.MsgInfo;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.key.IntentKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
+import com.huohu.mtrip.model.refresh.RefreshKey;
+import com.huohu.mtrip.model.refresh.RefreshManager;
+import com.huohu.mtrip.model.refresh.RefreshWithData;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.adapter.MsgItemAdapter;
@@ -31,7 +34,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/19 0019.
  */
 
-public class MsgListFragment extends PageImpBaseFragment {
+public class MsgListFragment extends PageImpBaseFragment implements RefreshWithData {
 
     @BindView(R.id.m_list)
     PullToRefreshListView mList;
@@ -74,6 +77,7 @@ public class MsgListFragment extends PageImpBaseFragment {
                 gotoFragment(FragKey.msg_detail_fragment,jsonString);
             }
         });
+        RefreshManager.getInstance().addNewListener(RefreshKey.MSG_UNREAD_COUNT_UPDATE,this);
         refreshView();
     }
 
@@ -96,5 +100,14 @@ public class MsgListFragment extends PageImpBaseFragment {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+
+
+    @Override
+    public void onRefreshWithData(int key, Object data) {
+        if (key == RefreshKey.MSG_UNREAD_COUNT_UPDATE) {
+            refreshView();
+        }
     }
 }

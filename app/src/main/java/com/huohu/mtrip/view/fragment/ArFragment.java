@@ -24,10 +24,12 @@ public class ArFragment extends TitleFragment implements IOnFocusListenable {
        }
 
 
+
     @Override
     protected void initData() {
 
     }
+
 
     @Override
     protected void afterViewCreate() {
@@ -77,5 +79,6 @@ public class ArFragment extends TitleFragment implements IOnFocusListenable {
        public void onWindowFocusChanged(boolean hasFocus) {
            mUnityPlayer.windowFocusChanged(hasFocus);
        }
+
 
 }

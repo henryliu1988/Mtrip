@@ -1,6 +1,5 @@
 package com.huohu.mtrip.view.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.huohu.mtrip.model.net.WebKey;
 import com.huohu.mtrip.model.net.WebResponse;
 import com.huohu.mtrip.model.net.WebUtils;
 import com.huohu.mtrip.presenter.contract.RegisterContract;
-import com.huohu.mtrip.presenter.presenter.RegisterPresenter;
 import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.MD5;
 import com.huohu.mtrip.util.Utils;
@@ -110,12 +108,16 @@ public class RegisterActivity extends TitleActivity {
         param.put("mobile", phoneNum);
         param.put("user_pass",paswordMd5);
         param.put("number", confirmCode);
-
+        param.put("type", 1);
         WebCall.getInstance().call(WebKey.func_register,param).subscribe(new BaseSubscriber<WebResponse>() {
             @Override
             public void onNext(WebResponse webResponse) {
-                MToast.showToast("注册成功");
-                ActivityUtils.transActivity(RegisterActivity.this, LoginActivity.class, true);
+                if (WebUtils.getWebStatus(webResponse)) {
+                    MToast.showToast("注册成功");
+                    ActivityUtils.transActivity(RegisterActivity.this, LoginActivity.class, true);
+                } else {
+                    MToast.showToast("注册失败");
+                }
             }
         });
     }

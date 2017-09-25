@@ -18,8 +18,6 @@ import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.model.key.FragKey;
 import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.model.net.FileUpLoad;
-import com.huohu.mtrip.model.net.WebResponse;
-import com.huohu.mtrip.model.net.WebUtils;
 import com.huohu.mtrip.model.refresh.RefreshKey;
 import com.huohu.mtrip.model.refresh.RefreshManager;
 import com.huohu.mtrip.model.refresh.RefreshWithKey;
@@ -81,7 +79,7 @@ public class MineInfoFragment extends PageImpBaseFragment implements  ActivityRe
         }
 
         String photoPath = info.getAvatar();
-        if (!TextUtils.isEmpty(photoPath)) {
+        if (!TextUtils.isEmpty(photoPath) && photoPath.length()>1) {
             ImageUtils.getInstance().displayFromRemoteOver(photoPath, userPhoto);
         }
         userDateValue.setText(info.getBirthday());

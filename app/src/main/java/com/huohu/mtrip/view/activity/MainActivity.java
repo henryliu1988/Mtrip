@@ -14,7 +14,6 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.githang.statusbar.StatusBarCompat;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.UserData;
-import com.huohu.mtrip.model.entity.TokenInfo;
 import com.huohu.mtrip.presenter.IOnFocusListenable;
 import com.huohu.mtrip.presenter.contract.MainContract;
 import com.huohu.mtrip.presenter.presenter.MainPresenter;
@@ -23,7 +22,6 @@ import com.huohu.mtrip.view.fragment.ArFragment;
 import com.huohu.mtrip.view.fragment.HomeFragment;
 import com.huohu.mtrip.view.fragment.MapFragment;
 import com.huohu.mtrip.view.fragment.MineFragment;
-import com.huohu.mtrip.view.fragment.TitleFragment;
 import com.huohu.mtrip.view.wighet.MToast;
 import com.huohu.mtrip.view.wighet.NoScrollViewPager;
 
@@ -98,6 +96,18 @@ public class MainActivity extends BaseActivity implements MainContract.View{
                     if (!UserData.getInstance().isLogin()) {
                         ActivityUtils.showLogin(MainActivity.this, false);
                         if (lastIndex == 0 || lastIndex == 1 || lastIndex == 2) {
+                            mMainTabs.setCurrentTab(lastIndex);
+                        } else {
+                            mMainTabs.setCurrentTab(0);
+                        }
+                        MToast.showToast("请先登录");
+                        return;
+                    }
+                }
+                else if (position == 1 ) {
+                    if (!UserData.getInstance().isLogin()) {
+                        ActivityUtils.showLogin(MainActivity.this, false);
+                        if (lastIndex == 0 || lastIndex == 2 || lastIndex == 3) {
                             mMainTabs.setCurrentTab(lastIndex);
                         } else {
                             mMainTabs.setCurrentTab(0);

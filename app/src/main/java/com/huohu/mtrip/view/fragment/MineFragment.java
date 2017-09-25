@@ -1,5 +1,6 @@
 package com.huohu.mtrip.view.fragment;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -52,18 +53,14 @@ public class MineFragment extends TitleFragment {
     protected void initData() {
         TokenInfo info = UserData.getInstance().getToken();
 
-        ImageUtils.getInstance().displayFromRemoteOver(info.getAvatar(),photoImage);
+        if (!TextUtils.isEmpty(info.getAvatar()) && info.getAvatar().length() >2) {
+            ImageUtils.getInstance().displayFromRemoteOver(info.getAvatar(),photoImage);
+        } else {
+            photoImage.setImageResource(R.mipmap.photo);
+        }
         nicknameTv.setText(info.getUser_nicename());
         roleTv.setText("普通游客");
         ViewUtil.setLeftCornerViewDrawbleBg(roleTv,"#B6DC65",11);
-        RefreshManager.getInstance().addNewListener(RefreshKey.USER_INFO_UPDATE, new RefreshWithKey() {
-            @Override
-            public void onRefreshWithKey(int key) {
-                if (key == RefreshKey.USER_INFO_UPDATE) {
-                    refreshView();
-                }
-            }
-        });
 
     }
 
@@ -76,6 +73,15 @@ public class MineFragment extends TitleFragment {
         setLeftText("设置");
         needDiv(false);
         setRightImageTips(R.mipmap.title_msg);
+        RefreshManager.getInstance().addNewListener(RefreshKey.USER_INFO_UPDATE, new RefreshWithKey() {
+            @Override
+            public void onRefreshWithKey(int key) {
+                if (key == RefreshKey.USER_INFO_UPDATE) {
+                    refreshView();
+                }
+            }
+        });
+
     }
 
     @Override

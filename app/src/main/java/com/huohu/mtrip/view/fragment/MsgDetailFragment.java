@@ -16,7 +16,6 @@ import com.huohu.mtrip.model.net.BaseSubscriber;
 import com.huohu.mtrip.model.net.WebCall;
 import com.huohu.mtrip.model.net.WebKey;
 import com.huohu.mtrip.model.net.WebResponse;
-import com.huohu.mtrip.model.net.WebUtils;
 import com.huohu.mtrip.util.DateUtil;
 import com.huohu.mtrip.util.Utils;
 
@@ -39,26 +38,25 @@ public class MsgDetailFragment extends PageImpBaseFragment {
 
     @Override
     protected void initData() {
-
-        MsgInfo info = Utils.parseObjectToEntry(mArgInfo,MsgInfo.class);
+       final MsgInfo info = Utils.parseObjectToEntry(mArgInfo,MsgInfo.class);
         if (info == null || TextUtils.isEmpty(info.getId())) {
             backFragment();
         }
-        title.setText(info.getTitle());
-        time.setText(DateUtil.getTimeDiffDayCurrent(Utils.toLong(info.getAddtime())));
-        content.setText(Html.fromHtml(info.getContent()));
         String id = info.getId();
-
         HashMap<String,Object> p = new HashMap<>();
         p.put("memberid", UserData.getInstance().getUserId());
         p.put("msgid",id);
         WebCall.getInstance().call(WebKey.func_addreadlog,p).subscribe(new BaseSubscriber<WebResponse>() {
             @Override
             public void onNext(WebResponse webResponse) {
-                boolean status = WebUtils.getWebStatus(webResponse);
                 MsgData.getInstance().loadUnreadData();
+                title.setText(info.getTitle());
+                time.setText(DateUtil.getTimeDiffDayCurrent(Utils.toLong(info.getAddtime())));
+                content.setText(Html.fromHtml(info.getContent()));
+
             }
         });
+
     }
 
     @Override
