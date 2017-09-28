@@ -57,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
             android:src="@mipmap/mine_info_image" />
@@ -93,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
             android:src="@mipmap/mine_score_image" />
@@ -131,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
             android:scaleType="fitCenter"
             android:src="@mipmap/mine_pet_image" />
 
@@ -166,6 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
             android:src="@mipmap/mine_prize_image" />
