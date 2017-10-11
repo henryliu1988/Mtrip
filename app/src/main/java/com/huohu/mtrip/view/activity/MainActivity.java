@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.githang.statusbar.StatusBarCompat;
 import com.huohu.mtrip.R;
 import com.huohu.mtrip.model.data.UserData;
 import com.huohu.mtrip.presenter.contract.MainContract;
@@ -83,15 +82,16 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         // 开始动画
         spinner.start();
 
-        int titleColor = getResources().getColor(R.color.title_bg);
-        StatusBarCompat.setFitsSystemWindows(getWindow(), true);
-        StatusBarCompat.setStatusBarColor(this, titleColor);
         initView();
         new CountDownTimer(10000, 5000) {
             public void onTick(long millisUntilFinished) {
             }
 
             public void onFinish() {
+               // WindowManager.LayoutParams attrs = getWindow().getAttributes();
+               // attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+               // getWindow().setAttributes(attrs);
+               // getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
                 ViewUtil.setVisible(contentLayout);
                 ViewUtil.setGone(gifLayout);
             }
@@ -112,20 +112,22 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Override
     public void onResume() {
         super.onResume();
+        if (mUnityPlayer != null)
         mUnityPlayer.resume();
-
     }
 
     @Override
     public void onDestroy() {
-        mUnityPlayer.quit();
+        if (mUnityPlayer != null)
+            mUnityPlayer.quit();
         super.onDestroy();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mUnityPlayer.pause();
+        if (mUnityPlayer != null)
+            mUnityPlayer.pause();
     }
 
     @Override
@@ -181,6 +183,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
                         MToast.showToast("请先登录");
                         return;
                     }
+                    UnityPlayer.UnitySendMessage("Manager", "StartAR","");
+
                 }
                 lastIndex = position;
                 mViewpager.setCurrentItem(position);

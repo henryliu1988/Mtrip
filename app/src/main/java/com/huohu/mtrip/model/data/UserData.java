@@ -16,6 +16,7 @@ import com.huohu.mtrip.util.ActivityUtils;
 import com.huohu.mtrip.util.MD5;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.view.wighet.MToast;
+import com.unity3d.player.UnityPlayer;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -143,6 +144,7 @@ public class UserData {
 
     public void logOut() {
         SPUtils.put("login_auto", false);
+        UnityPlayer.UnitySendMessage("Manager", "ClearUserID","");
         mToken = null;
     }
     public boolean isLogin(){

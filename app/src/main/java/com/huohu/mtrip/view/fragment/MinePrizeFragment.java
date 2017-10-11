@@ -133,6 +133,7 @@ public class MinePrizeFragment extends PageImpBaseFragment {
 
                 List<PrizeInfo> infos = Utils.parseObjectToListEntry(webResponse.getData(), PrizeInfo.class);
                 for (PrizeInfo info:infos) {
+
                     int status  = Utils.toInteger(info.getWin_status());
                     switch (status) {
                         case 1:

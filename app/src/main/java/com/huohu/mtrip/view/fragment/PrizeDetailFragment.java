@@ -10,6 +10,8 @@ import com.huohu.mtrip.util.ImageUtils;
 import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -54,9 +56,13 @@ public class PrizeDetailFragment extends PageImpBaseFragment {
 
         ViewUtil.setCornerViewDrawbleBg(image,"#999999","#FFFFFF");
         int state = Utils.toInteger(info.getWin_status());
+        Date addDate1 = DateUtil.getDateBySeconds(Utils.toLong(info.getAdd_time()));
+        addDate1.setHours(18);
+        addDate1.setSeconds(0);
+        addDate1.setMinutes(0);
+        String duration = DateUtil.dateToString(addDate1,DateUtil.FORMAT_TWO);
 
         String addTime = DateUtil.getFullTimeDiffDayCurrent(Utils.toLong(info.getAdd_time()));
-        String duration = DateUtil.getFullTimeDiffDayCurrent(Utils.toLong(info.getAdd_time()));
         String duiTime = DateUtil.getFullTimeDiffDayCurrent(Utils.toLong(info.getDui_time()));
         prizeGetTime.setText("获奖时间：" + addTime);
         prizeDuration.setText("有效期：" +duration);
@@ -80,7 +86,7 @@ public class PrizeDetailFragment extends PageImpBaseFragment {
             }
         }
 
-        String code = info.getMarks();
+        String code = info.getWinnumber();
         ViewUtil.setCornerViewDrawbleBg(codeTv,"#FFFFFF","#999999",1,8);
         codeTv.setText(code);
     }

@@ -14,6 +14,7 @@ import com.huohu.mtrip.util.Utils;
 import com.huohu.mtrip.util.ViewUtil;
 import com.huohu.mtrip.view.wighet.ViewHolder;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +50,13 @@ public class PrizeListAdapter extends ListViewAdapter<PrizeInfo> {
             ViewUtil.setVisible(durationTv);
             ViewUtil.setVisible(prizeoptImage);
 
-           // durationTv.setText(Utils.toString("有效期：" +data.get("duration")));
+            Date addDate1 = DateUtil.getDateBySeconds(Utils.toLong(data.getAdd_time()));
+            addDate1.setHours(18);
+            addDate1.setSeconds(0);
+            addDate1.setMinutes(0);
+
+            String durtation = DateUtil.dateToString(addDate1,DateUtil.FORMAT_TWO);
+            durationTv.setText(Utils.toString("有效期：" +durtation));
             prizeoptImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
